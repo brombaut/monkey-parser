@@ -12,7 +12,11 @@
     "prettier"
   ],
   "rules": {
-    "no-console": 0, // Means error // 0=off, 1=warn, 2=error
-    "prettier/prettier": 2
+    "no-console": 0, // 0=off, 1=warn, 2=error
+    "prettier/prettier": 2,
+    "no-empty-function": 0,
+    "@typescript-eslint/no-empty-function": 0,
+    "no-use-before-define": 0,
+    "@typescript-eslint/no-use-before-define": 0
   }
 }

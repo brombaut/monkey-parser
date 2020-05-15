@@ -1,4 +1,4 @@
-export enum TokenType {
+enum TokenType {
   ILLEGAL = "ILLEGAL",
   EOF = "EOF",
 
@@ -39,3 +39,5 @@ export enum TokenType {
   ELSE = "ELSE",
   RETURN = "RETURN"
 }
+
+export default TokenType;

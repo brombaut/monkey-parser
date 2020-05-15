@@ -1,6 +1,6 @@
-import { Token } from "../token/token";
-import { TokenType } from "../token/token-type";
-import { Lexer } from "./lexer";
+import Token from "../token/token";
+import TokenType from "../token/token-type";
+import Lexer from "./lexer";
 
 describe("Lexer", () => {
   it("should create correct tokens", () => {
@@ -101,13 +101,7 @@ describe("Lexer", () => {
       { type: TokenType.SEMICOLON, literal: ";" },
       { type: TokenType.EOF, literal: "" }
     ];
-
-    const l: Lexer = new Lexer(input);
-    expectedTokens.forEach((expectedToken: Token) => {
-      const tok: Token = l.nextToken();
-      expect(tok.type).toEqual(expectedToken.type);
-      expect(tok.literal).toEqual(expectedToken.literal);
-    });
+    runLexerTests(input, expectedTokens);
   });
 
   it("should create ILLEGAL tokens for illegal characters", () => {
@@ -119,12 +113,15 @@ describe("Lexer", () => {
       { type: TokenType.ASSIGN, literal: "=" },
       { type: TokenType.EOF, literal: "" }
     ];
-
-    const l: Lexer = new Lexer(input);
-    expectedTokens.forEach((expectedToken: Token) => {
-      const tok: Token = l.nextToken();
-      expect(tok.type).toEqual(expectedToken.type);
-      expect(tok.literal).toEqual(expectedToken.literal);
-    });
+    runLexerTests(input, expectedTokens);
   });
 });
+
+function runLexerTests(input: string, expectedTokens: Token[]): void {
+  const l: Lexer = new Lexer(input);
+  expectedTokens.forEach((expectedToken: Token) => {
+    const tok: Token = l.nextToken();
+    expect(tok.type).toEqual(expectedToken.type);
+    expect(tok.literal).toEqual(expectedToken.literal);
+  });
+}

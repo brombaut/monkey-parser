@@ -1,8 +1,8 @@
-import { Token } from "../token/token";
-import { TokenType } from "../token/token-type";
+import Token from "../token/token";
+import TokenType from "../token/token-type";
 import lookupIdent from "../token/keywords";
 
-export class Lexer {
+class Lexer {
   private input: string;
   private position: number; // currrent position in input (points to current char)
   private readPosition: number; // current reading position in input (after current char)
@@ -154,3 +154,5 @@ export class Lexer {
     return this.ch.match(/[0-9]/i) ? true : false;
   }
 }
+
+export default Lexer;
