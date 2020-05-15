@@ -55,7 +55,7 @@ describe("Lexer", () => {
     ];
 
     const l: Lexer = new Lexer(input);
-    expectedTokens.forEach((expectedToken: Token, i: number) => {
+    expectedTokens.forEach((expectedToken: Token) => {
       const tok: Token = l.nextToken();
       expect(tok.type).toEqual(expectedToken.type);
       expect(tok.literal).toEqual(expectedToken.literal);
@@ -73,7 +73,7 @@ describe("Lexer", () => {
     ];
 
     const l: Lexer = new Lexer(input);
-    expectedTokens.forEach((expectedToken: Token, i: number) => {
+    expectedTokens.forEach((expectedToken: Token) => {
       const tok: Token = l.nextToken();
       expect(tok.type).toEqual(expectedToken.type);
       expect(tok.literal).toEqual(expectedToken.literal);
