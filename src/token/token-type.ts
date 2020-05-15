@@ -10,6 +10,13 @@ export enum TokenType {
   // Operators
   ASSIGN = "=",
   PLUS = "+",
+  MINUS = "-",
+  BANG = "!",
+  ASTERISK = "*",
+  SLASH = "/",
+
+  LT = "<",
+  GT = ">",
 
   // Delimiters
   COMMA = ",",
@@ -20,7 +27,15 @@ export enum TokenType {
   LBRACE = "{",
   RBRACE = "}",
 
+  EQ = "==",
+  NOT_EQ = "!=",
+
   // Keywords
   FUNCTION = "FUNCTION",
-  LET = "LET"
+  LET = "LET",
+  TRUE = "TRUE",
+  FALSE = "FALSE",
+  IF = "IF",
+  ELSE = "ELSE",
+  RETURN = "RETURN"
 }

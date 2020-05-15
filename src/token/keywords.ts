@@ -4,7 +4,12 @@ type Keyword = { [s: string]: TokenType };
 
 const keywords: Keyword = {
   function: TokenType.FUNCTION,
-  let: TokenType.LET
+  let: TokenType.LET,
+  true: TokenType.TRUE,
+  false: TokenType.FALSE,
+  if: TokenType.IF,
+  else: TokenType.ELSE,
+  return: TokenType.RETURN
 };
 
 const lookupIdent = function (ident: string): TokenType {
