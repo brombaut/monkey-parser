@@ -4,9 +4,9 @@ import lookupIdent from "../token/keywords";
 
 export class Lexer {
   private input: string;
-  private position: number;  // currrent position in input (points to current char)
-  private readPosition: number;  // current reading position in input (after current char)
-  private ch: string;  // current char under examination
+  private position: number; // currrent position in input (points to current char)
+  private readPosition: number; // current reading position in input (after current char)
+  private ch: string; // current char under examination
 
   constructor(input: string) {
     this.input = input;
@@ -95,7 +95,7 @@ export class Lexer {
   private newToken(tokenType: TokenType, ch: string): Token {
     return {
       type: tokenType,
-      literal: ch,
+      literal: ch
     };
   }
 
@@ -122,5 +122,4 @@ export class Lexer {
   private chIsDigit(): boolean {
     return this.ch.match(/[0-9]/i) ? true : false;
   }
-
 }

@@ -51,8 +51,8 @@ describe("Lexer", () => {
       { type: TokenType.IDENT, literal: "ten" },
       { type: TokenType.RPAREN, literal: ")" },
       { type: TokenType.SEMICOLON, literal: ";" },
-      { type: TokenType.EOF, literal: "" },
-    ]
+      { type: TokenType.EOF, literal: "" }
+    ];
 
     const l: Lexer = new Lexer(input);
     expectedTokens.forEach((expectedToken: Token, i: number) => {
@@ -60,7 +60,7 @@ describe("Lexer", () => {
       expect(tok.type).toEqual(expectedToken.type);
       expect(tok.literal).toEqual(expectedToken.literal);
     });
-  })
+  });
 
   it("should create ILLEGAL tokens for illegal characters", () => {
     const input = `+~?=`;
@@ -69,8 +69,8 @@ describe("Lexer", () => {
       { type: TokenType.ILLEGAL, literal: "~" },
       { type: TokenType.ILLEGAL, literal: "?" },
       { type: TokenType.ASSIGN, literal: "=" },
-      { type: TokenType.EOF, literal: "" },
-    ]
+      { type: TokenType.EOF, literal: "" }
+    ];
 
     const l: Lexer = new Lexer(input);
     expectedTokens.forEach((expectedToken: Token, i: number) => {
@@ -78,5 +78,5 @@ describe("Lexer", () => {
       expect(tok.type).toEqual(expectedToken.type);
       expect(tok.literal).toEqual(expectedToken.literal);
     });
-  })
-})
+  });
+});

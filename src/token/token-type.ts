@@ -3,8 +3,8 @@ export enum TokenType {
   EOF = "EOF",
 
   // Identifiers + literals
-  IDENT = "IDENT",  // add, footer, x, y, ...
-  INT = "INT",    // 134325
+  IDENT = "IDENT", // add, footer, x, y, ...
+  INT = "INT", // 134325
   STRING = "STRING", // "foobar"
 
   // Operators
@@ -22,5 +22,5 @@ export enum TokenType {
 
   // Keywords
   FUNCTION = "FUNCTION",
-  LET = "LET",
-};
+  LET = "LET"
+}
