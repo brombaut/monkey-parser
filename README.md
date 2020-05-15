@@ -1,1 +1,1 @@
-# Typescript Uml Generator
+# Typescript UML Generator

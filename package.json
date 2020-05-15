@@ -6,11 +6,14 @@
   "scripts": {
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/index.js",
+    "start": "npm run build && node build/index.ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec ts-node src/index.ts --watch src",
+    "test": "jest --watch",
+    "jest": "jest",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -24,16 +27,23 @@
   },
   "homepage": "https://github.com/brombaut/typescript-uml-generator#readme",
   "devDependencies": {
+    "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
+    "@types/source-map-support": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
     "husky": "^4.2.5",
+    "jest": "^26.0.1",
     "nodemon": "^2.0.4",
+    "onchange": "^7.0.2",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
+    "serve": "^11.3.0",
+    "source-map-support": "^0.5.19",
+    "ts-jest": "^25.5.1",
     "ts-node": "^8.10.1",
     "typescript": "^3.9.2"
   },

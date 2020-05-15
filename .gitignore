@@ -1,6 +1,10 @@
 .DS_Store
 node_modules
 build
+dist
+src/**/*.js
+src/**/*.map
+coverage
 
 # local env files
 .env.local
