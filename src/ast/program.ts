@@ -4,23 +4,37 @@ import Statement from "./statement";
 class Program implements Node {
   private _statements: Statement[] = [];
 
-  public statements(): Statement[] {
+  constructor(statements?: Statement[]) {
+    if (statements) {
+      this._statements = statements;
+    }
+  }
+
+  statements(): Statement[] {
     return this._statements;
   }
 
-  public statementAt(i: number): Statement {
+  statementAt(i: number): Statement {
     return this._statements[i];
   }
 
-  public appendStatement(statement: Statement): void {
+  appendStatement(statement: Statement): void {
     this._statements.push(statement);
   }
 
-  public tokenLiteral(): string {
+  tokenLiteral(): string {
     if (this._statements.length > 0) {
       return this._statements[0].tokenLiteral();
     }
     return "";
+  }
+
+  string(): string {
+    let out = "";
+    this._statements.forEach((stmt: Statement) => {
+      out += `${stmt.string()}\n`;
+    });
+    return out;
   }
 }
 

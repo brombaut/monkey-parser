@@ -1,8 +1,13 @@
 import TokenType from "./token-type";
 
-interface Token {
+class Token {
   type: TokenType;
   literal: string;
+
+  constructor(type: TokenType, literal: string) {
+    this.type = type;
+    this.literal = literal;
+  }
 }
 
 export default Token;

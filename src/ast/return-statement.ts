@@ -10,7 +10,10 @@ class ReturnStatememt implements Statement {
     this._token = token;
     this._returnValue = returnValue;
   }
-  statementNode(): void { }
+  string(): string {
+    return `${this.tokenLiteral()} ${this._returnValue?.string()}'`;
+  }
+  statementNode(): void {}
 
   tokenLiteral(): string {
     return this._token.literal;

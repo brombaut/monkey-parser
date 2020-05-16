@@ -10,6 +10,10 @@ class Identifier implements Expression {
     this._value = value;
   }
 
+  string(): string {
+    return this._value;
+  }
+
   expressionNode(): void {}
 
   tokenLiteral(): string {
