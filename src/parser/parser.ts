@@ -5,6 +5,7 @@ import TokenType from "../token/token-type";
 import Statement from "../ast/statement";
 import LetStatement from "../ast/let-statement";
 import Identifier from "../ast/identifier";
+import ReturnStatememt from "../ast/return-statement";
 
 class Parser {
   private _lexer: Lexer;
@@ -44,6 +45,8 @@ class Parser {
     switch (this._curToken.type) {
       case TokenType.LET:
         return this.parseLetStatement();
+      case TokenType.RETURN:
+        return this.parseReturnStatement();
       default:
         return null;
     }
@@ -69,6 +72,16 @@ class Parser {
       this.nextToken();
     }
     return new LetStatement(localToken, name, null);
+  }
+
+  private parseReturnStatement(): ReturnStatememt | null {
+    const localToken: Token = this._curToken;
+    this.nextToken();
+    // TODO: Skipe expression until semicolon
+    while (!this.curTokenIs(TokenType.SEMICOLON)) {
+      this.nextToken();
+    }
+    return new ReturnStatememt(localToken, null);
   }
 
   private curTokenIs(t: TokenType): boolean {
