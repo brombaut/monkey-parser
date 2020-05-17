@@ -12,7 +12,6 @@ import Precedence from "./precedence";
 import NullExpression from "../ast/null-expression";
 import NullStatement from "../ast/null-statement";
 import Integerliteral from "../ast/integer-literal";
-import { Interface } from "readline";
 
 class Parser {
   private _lexer: Lexer;
