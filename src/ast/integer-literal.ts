@@ -10,7 +10,7 @@ class Integerliteral implements Expression {
     this._value = value;
   }
 
-  expressionNode(): void { }
+  expressionNode(): void {}
 
   tokenLiteral(): string {
     return this._token.literal;

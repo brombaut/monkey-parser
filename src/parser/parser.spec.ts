@@ -104,7 +104,10 @@ function testIdentifierExpression(
   expect(ident.tokenLiteral()).toEqual(expectedIdent);
 }
 
-function testIntegerLiteralExpression(stmt: Statement, expectedIntegerLiteral: number) {
+function testIntegerLiteralExpression(
+  stmt: Statement,
+  expectedIntegerLiteral: number
+) {
   expect(stmt).toBeInstanceOf(ExpressionStatement);
   const expressionStmt: ExpressionStatement = stmt as ExpressionStatement;
   expect(expressionStmt.expression()).toBeInstanceOf(IntegerLiteral);
