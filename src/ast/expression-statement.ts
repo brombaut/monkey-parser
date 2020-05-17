@@ -11,7 +11,7 @@ class ExpressionStatement implements Statement {
     this._expression = expression;
   }
 
-  statementNode(): void {}
+  statementNode(): void { }
 
   tokenLiteral(): string {
     return this._token.literal;
@@ -19,6 +19,10 @@ class ExpressionStatement implements Statement {
 
   string(): string {
     return this._expression.string();
+  }
+
+  expression(): Expression {
+    return this._expression;
   }
 }
 

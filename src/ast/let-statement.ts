@@ -14,7 +14,7 @@ class LetStatement implements Statement {
     this._value = value;
   }
 
-  statementNode(): void {}
+  statementNode(): void { }
 
   tokenLiteral(): string {
     return this._token.literal;
@@ -23,10 +23,10 @@ class LetStatement implements Statement {
   string(): string {
     return `${
       this._token.literal
-    } ${this._name.string()} = ${this._value?.string()};`;
+      } ${this._name.string()} = ${this._value?.string()};`;
   }
 
-  get name(): Identifier {
+  name(): Identifier {
     return this._name;
   }
 }

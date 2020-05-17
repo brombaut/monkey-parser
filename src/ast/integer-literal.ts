@@ -1,17 +1,13 @@
 import Expression from "./expression";
 import Token from "../token/token";
 
-class Identifier implements Expression {
+class Integerliteral implements Expression {
   private _token: Token;
-  private _value: string;
+  private _value: number;
 
-  constructor(token: Token, value: string) {
+  constructor(token: Token, value: number) {
     this._token = token;
     this._value = value;
-  }
-
-  string(): string {
-    return this._value;
   }
 
   expressionNode(): void { }
@@ -20,9 +16,13 @@ class Identifier implements Expression {
     return this._token.literal;
   }
 
-  value(): string {
+  string(): string {
+    return this._token.literal;
+  }
+
+  value() {
     return this._value;
   }
 }
 
-export default Identifier;
+export default Integerliteral;
