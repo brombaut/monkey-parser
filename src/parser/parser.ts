@@ -11,7 +11,8 @@ import Expression from "../ast/expression";
 import Precedence from "./precedence";
 import NullExpression from "../ast/null-expression";
 import NullStatement from "../ast/null-statement";
-import Integerliteral from "../ast/integer-literal";
+import IntegerLiteral from "../ast/integer-literal";
+import PrefixExpression from "../ast/prefix-expression";
 
 class Parser {
   private _lexer: Lexer;
@@ -96,7 +97,12 @@ class Parser {
   }
 
   private parseExpression(precedence: Precedence): Expression {
-    const leftExp: Expression = this.callMeMaybe();
+    const prefix: Expression = this.prefixParseFn();
+    if (prefix instanceof NullExpression) {
+      this.noPrefixParseFnError(this._curToken.type);
+      return new NullExpression();
+    }
+    const leftExp: Expression = prefix;
     return leftExp;
   }
 
@@ -111,20 +117,37 @@ class Parser {
       this.errors.push(msg);
       return new NullExpression();
     }
-    return new Integerliteral(localToken, Number(localToken.literal));
+    return new IntegerLiteral(localToken, Number(localToken.literal));
   }
 
-  private callMeMaybe(): Expression {
-    // TODO: Change this method name
+  private parsePrefixExpression(): Expression {
+    const localToken: Token = this._curToken;
+    this.nextToken();
+    return new PrefixExpression(
+      localToken,
+      localToken.literal,
+      this.parseExpression(Precedence.PREFIX)
+    );
+  }
+
+  private prefixParseFn(): Expression {
     const ctt: TokenType = this._curToken.type;
     switch (ctt) {
       case TokenType.IDENT:
         return this.parseIdentifier();
       case TokenType.INT:
         return this.parseIntegerLiteral();
+      case TokenType.BANG:
+      case TokenType.MINUS:
+        return this.parsePrefixExpression();
       default:
         return new NullExpression();
     }
+  }
+
+  private noPrefixParseFnError(t: TokenType) {
+    const msg = `no prefix parse function for ${t} found`;
+    this._errors.push(msg);
   }
 
   private nextToken(): void {

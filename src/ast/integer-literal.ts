@@ -1,7 +1,7 @@
 import Expression from "./expression";
 import Token from "../token/token";
 
-class Integerliteral implements Expression {
+class IntegerLiteral implements Expression {
   private _token: Token;
   private _value: number;
 
@@ -10,7 +10,7 @@ class Integerliteral implements Expression {
     this._value = value;
   }
 
-  expressionNode(): void { }
+  expressionNode(): void {}
 
   tokenLiteral(): string {
     return this._token.literal;
@@ -25,4 +25,4 @@ class Integerliteral implements Expression {
   }
 }
 
-export default Integerliteral;
+export default IntegerLiteral;
