@@ -32,7 +32,7 @@ class Program implements Node {
   string(): string {
     let out = "";
     this._statements.forEach((stmt: Statement) => {
-      out += `${stmt.string()}\n`;
+      out += `${stmt.string()}`;
     });
     return out;
   }

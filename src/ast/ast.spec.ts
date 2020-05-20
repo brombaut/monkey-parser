@@ -14,6 +14,6 @@ describe("AST", () => {
       )
     ]);
 
-    expect(program.string()).toEqual("let myVar = anotherVar;\n");
+    expect(program.string()).toEqual("let myVar = anotherVar;");
   });
 });

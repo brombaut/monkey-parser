@@ -8,11 +8,12 @@ import Identifier from "../ast/identifier";
 import ReturnStatememt from "../ast/return-statement";
 import ExpressionStatement from "../ast/expression-statement";
 import Expression from "../ast/expression";
-import Precedence from "./precedence";
+import { Precedence, precedences } from "./precedence";
 import NullExpression from "../ast/null-expression";
 import NullStatement from "../ast/null-statement";
 import IntegerLiteral from "../ast/integer-literal";
 import PrefixExpression from "../ast/prefix-expression";
+import InfixExpression from "../ast/infix-expression";
 
 class Parser {
   private _lexer: Lexer;
@@ -102,7 +103,35 @@ class Parser {
       this.noPrefixParseFnError(this._curToken.type);
       return new NullExpression();
     }
-    const leftExp: Expression = prefix;
+    let leftExp: Expression = prefix;
+
+    while (!this.peekTokenIs(TokenType.SEMICOLON) && precedence < this.peekPrecedence()) {
+      this.nextToken();
+      const ctt: TokenType = this._curToken.type;
+      switch (ctt) {
+        case TokenType.PLUS:
+        case TokenType.MINUS:
+        case TokenType.SLASH:
+        case TokenType.ASTERISK:
+        case TokenType.EQ:
+        case TokenType.NOT_EQ:
+        case TokenType.LT:
+        case TokenType.GT:
+          break;
+        default:
+          return leftExp;
+      }
+      // this.nextToken();
+      leftExp = this.parseInfixExpression(leftExp);
+      // const infix: Expression = this.infixParseFn(leftExp);
+      // if (infix instanceof NullExpression) {
+      //   return leftExp;
+      // }
+      // this.nextToken();
+      // leftExp = infix;
+
+
+    }
     return leftExp;
   }
 
@@ -145,7 +174,36 @@ class Parser {
     }
   }
 
-  private noPrefixParseFnError(t: TokenType) {
+  private parseInfixExpression(left: Expression): Expression {
+    const localToken: Token = this._curToken;
+    const precedence: Precedence = this.curPrecedence();
+    this.nextToken();
+    return new InfixExpression(
+      localToken,
+      left,
+      localToken.literal,
+      this.parseExpression(precedence)
+    );
+  }
+
+  private infixParseFn(left: Expression): Expression {
+    const ctt: TokenType = this._curToken.type;
+    switch (ctt) {
+      case TokenType.PLUS:
+      case TokenType.MINUS:
+      case TokenType.SLASH:
+      case TokenType.ASTERISK:
+      case TokenType.EQ:
+      case TokenType.NOT_EQ:
+      case TokenType.LT:
+      case TokenType.GT:
+        return this.parseInfixExpression(left);
+      default:
+        return new NullExpression();
+    }
+  }
+
+  private noPrefixParseFnError(t: TokenType): void {
     const msg = `no prefix parse function for ${t} found`;
     this._errors.push(msg);
   }
@@ -175,6 +233,14 @@ class Parser {
   private peekError(t: TokenType): void {
     const msg = `expected next token to be ${t}, got ${this._peekToken.type} instead`;
     this._errors.push(msg);
+  }
+
+  private peekPrecedence(): Precedence {
+    return precedences(this._peekToken.type);
+  }
+
+  private curPrecedence(): Precedence {
+    return precedences(this._curToken.type);
   }
 }
 

@@ -12,7 +12,7 @@ export type PrefixExpressionParserTest = {
 export function testPrefixExpression(
   stmt: Statement,
   expected: PrefixExpressionParserTest
-) {
+): void {
   expect(stmt).toBeInstanceOf(ExpressionStatement);
   const expressionStmt: ExpressionStatement = stmt as ExpressionStatement;
   expect(expressionStmt.expression()).toBeInstanceOf(PrefixExpression);
