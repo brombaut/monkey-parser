@@ -110,28 +110,11 @@ class Parser {
       precedence < this.peekPrecedence()
     ) {
       this.nextToken();
-      const ctt: TokenType = this._curToken.type;
-      switch (ctt) {
-        case TokenType.PLUS:
-        case TokenType.MINUS:
-        case TokenType.SLASH:
-        case TokenType.ASTERISK:
-        case TokenType.EQ:
-        case TokenType.NOT_EQ:
-        case TokenType.LT:
-        case TokenType.GT:
-          break;
-        default:
-          return leftExp;
+      const infix: Expression = this.infixParseFn(leftExp);
+      if (infix instanceof NullExpression) {
+        return leftExp;
       }
-      // this.nextToken();
-      leftExp = this.parseInfixExpression(leftExp);
-      // const infix: Expression = this.infixParseFn(leftExp);
-      // if (infix instanceof NullExpression) {
-      //   return leftExp;
-      // }
-      // this.nextToken();
-      // leftExp = infix;
+      leftExp = infix;
     }
     return leftExp;
   }
