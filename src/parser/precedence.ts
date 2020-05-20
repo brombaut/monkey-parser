@@ -28,4 +28,4 @@ export const precedences = function (tokenType: TokenType): Precedence {
     default:
       return Precedence.LOWEST;
   }
-}
+};

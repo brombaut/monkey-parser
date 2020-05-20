@@ -7,14 +7,19 @@ class InfixExpression implements Expression {
   private _right: Expression;
   private _left: Expression;
 
-  constructor(token: Token, left: Expression, operator: string, right: Expression) {
+  constructor(
+    token: Token,
+    left: Expression,
+    operator: string,
+    right: Expression
+  ) {
     this._token = token;
     this._left = left;
     this._operator = operator;
     this._right = right;
   }
 
-  expressionNode(): void { }
+  expressionNode(): void {}
 
   tokenLiteral(): string {
     return this._token.literal;

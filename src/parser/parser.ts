@@ -105,7 +105,10 @@ class Parser {
     }
     let leftExp: Expression = prefix;
 
-    while (!this.peekTokenIs(TokenType.SEMICOLON) && precedence < this.peekPrecedence()) {
+    while (
+      !this.peekTokenIs(TokenType.SEMICOLON) &&
+      precedence < this.peekPrecedence()
+    ) {
       this.nextToken();
       const ctt: TokenType = this._curToken.type;
       switch (ctt) {
@@ -129,8 +132,6 @@ class Parser {
       // }
       // this.nextToken();
       // leftExp = infix;
-
-
     }
     return leftExp;
   }
