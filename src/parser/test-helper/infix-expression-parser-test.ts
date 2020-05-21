@@ -1,7 +1,7 @@
 import Statement from "../../ast/statement";
 import ExpressionStatement from "../../ast/expression-statement";
-import { testIntegerLiteral } from "./integer-literal-parser-test";
 import InfixExpression from "../../ast/infix-expression";
+import { testLiteralExpression } from "./literal-expression-parser-test";
 
 export type InfixExpressionParserTest = {
   input: string;
@@ -18,7 +18,7 @@ export function testInfixExpression(
   const expressionStmt: ExpressionStatement = stmt as ExpressionStatement;
   expect(expressionStmt.expression()).toBeInstanceOf(InfixExpression);
   const infixExpression: InfixExpression = expressionStmt.expression() as InfixExpression;
-  testIntegerLiteral(infixExpression.left(), expected.leftValue);
+  testLiteralExpression(infixExpression.left(), expected.leftValue);
   expect(infixExpression.operator()).toEqual(expected.operator);
-  testIntegerLiteral(infixExpression.right(), expected.rightValue);
+  testLiteralExpression(infixExpression.right(), expected.rightValue);
 }

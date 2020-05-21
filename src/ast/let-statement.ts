@@ -6,9 +6,9 @@ import Expression from "./expression";
 class LetStatement implements Statement {
   private _token: Token;
   private _name: Identifier;
-  private _value: Expression | null;
+  private _value: Expression;
 
-  constructor(token: Token, name: Identifier, value: Expression | null) {
+  constructor(token: Token, name: Identifier, value: Expression) {
     this._token = token;
     this._name = name;
     this._value = value;
@@ -28,6 +28,10 @@ class LetStatement implements Statement {
 
   name(): Identifier {
     return this._name;
+  }
+
+  value(): Expression {
+    return this._value;
   }
 }
 

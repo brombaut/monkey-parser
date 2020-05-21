@@ -28,13 +28,13 @@ describe("Parser", () => {
     `;
     const program: Program = parserProgramForTest(input, 3);
     const tests: LetStatementParserTest[] = [
-      { exexpectedIdentifier: "x" },
-      { exexpectedIdentifier: "y" },
-      { exexpectedIdentifier: "foobar" }
+      { expectedIdentifier: "x" },
+      { expectedIdentifier: "y" },
+      { expectedIdentifier: "foobar" }
     ];
     tests.forEach((pt: LetStatementParserTest, i: number) => {
       const stmt: Statement = program.statementAt(i);
-      testLetStatement(stmt, pt.exexpectedIdentifier);
+      testLetStatement(stmt, pt.expectedIdentifier);
     });
   });
 

@@ -2,7 +2,7 @@ import Statement from "../../ast/statement";
 import LetStatement from "../../ast/let-statement";
 
 export type LetStatementParserTest = {
-  exexpectedIdentifier: string;
+  expectedIdentifier: string;
 };
 
 export function testLetStatement(s: Statement, name: string): void {
