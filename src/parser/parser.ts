@@ -148,6 +148,27 @@ class Parser {
     );
   }
 
+  private parseInfixExpression(left: Expression): Expression {
+    const localToken: Token = this._curToken;
+    const precedence: Precedence = this.curPrecedence();
+    this.nextToken();
+    return new InfixExpression(
+      localToken,
+      left,
+      localToken.literal,
+      this.parseExpression(precedence)
+    );
+  }
+
+  private parseGroupedExpression(): Expression {
+    this.nextToken();
+    const exp: Expression = this.parseExpression(Precedence.LOWEST);
+    if (!this.expectPeek(TokenType.RPAREN)) {
+      return new NullExpression();
+    }
+    return exp;
+  }
+
   private prefixParseFn(): Expression {
     const ctt: TokenType = this._curToken.type;
     switch (ctt) {
@@ -161,21 +182,11 @@ class Parser {
       case TokenType.TRUE:
       case TokenType.FALSE:
         return this.parseBoolean();
+      case TokenType.LPAREN:
+        return this.parseGroupedExpression();
       default:
         return new NullExpression();
     }
-  }
-
-  private parseInfixExpression(left: Expression): Expression {
-    const localToken: Token = this._curToken;
-    const precedence: Precedence = this.curPrecedence();
-    this.nextToken();
-    return new InfixExpression(
-      localToken,
-      left,
-      localToken.literal,
-      this.parseExpression(precedence)
-    );
   }
 
   private infixParseFn(left: Expression): Expression {
