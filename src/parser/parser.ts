@@ -14,6 +14,7 @@ import NullStatement from "../ast/null-statement";
 import IntegerLiteral from "../ast/integer-literal";
 import PrefixExpression from "../ast/prefix-expression";
 import InfixExpression from "../ast/infix-expression";
+import BooleanLiteral from "../ast/boolean-literal";
 
 class Parser {
   private _lexer: Lexer;
@@ -75,7 +76,7 @@ class Parser {
     while (!this.curTokenIs(TokenType.SEMICOLON)) {
       this.nextToken();
     }
-    return new LetStatement(localToken, name, null);
+    return new LetStatement(localToken, name, new NullExpression());
   }
 
   private parseReturnStatement(): ReturnStatememt {
@@ -133,6 +134,10 @@ class Parser {
     return new IntegerLiteral(localToken, Number(localToken.literal));
   }
 
+  private parseBoolean(): Expression {
+    return new BooleanLiteral(this._curToken, this.curTokenIs(TokenType.TRUE));
+  }
+
   private parsePrefixExpression(): Expression {
     const localToken: Token = this._curToken;
     this.nextToken();
@@ -153,6 +158,9 @@ class Parser {
       case TokenType.BANG:
       case TokenType.MINUS:
         return this.parsePrefixExpression();
+      case TokenType.TRUE:
+      case TokenType.FALSE:
+        return this.parseBoolean();
       default:
         return new NullExpression();
     }

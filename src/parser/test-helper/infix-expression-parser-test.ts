@@ -5,9 +5,9 @@ import { testLiteralExpression } from "./literal-expression-parser-test";
 
 export type InfixExpressionParserTest = {
   input: string;
-  leftValue: number;
+  leftValue: number | boolean;
   operator: string;
-  rightValue: number;
+  rightValue: number | boolean;
 };
 
 export function testInfixExpression(
