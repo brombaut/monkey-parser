@@ -5,7 +5,7 @@ import { testIdentifier } from "./identifier-parser-test";
 export function testLiteralExpression(
   exp: Expression,
   expected: number | string
-) {
+): void {
   switch (typeof expected) {
     case "number":
       return testIntegerLiteral(exp, expected as number);
