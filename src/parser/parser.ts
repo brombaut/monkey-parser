@@ -201,7 +201,10 @@ class Parser {
     const localToken: Token = this._curToken;
     this.nextToken();
     const bs: Statement[] = [];
-    while (!this.curTokenIs(TokenType.RBRACE) && !this.curTokenIs(TokenType.EOF)) {
+    while (
+      !this.curTokenIs(TokenType.RBRACE) &&
+      !this.curTokenIs(TokenType.EOF)
+    ) {
       const stmt: Statement = this.parseStatement();
       if (!(stmt instanceof NullStatement)) {
         bs.push(stmt);

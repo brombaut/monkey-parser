@@ -19,8 +19,10 @@ import {
 } from "./test-helper/infix-expression-parser-test";
 import { OperatorPrecedenceParserTest } from "./test-helper/operator-precedence-parsing-test";
 import ExpressionStatement from "../ast/expression-statement";
-import { testIfExpression, testIfElseExpression } from "./test-helper/if-expression-parser-test";
-
+import {
+  testIfExpression,
+  testIfElseExpression
+} from "./test-helper/if-expression-parser-test";
 
 describe("Parser", () => {
   it("should parse let statements", () => {
@@ -154,7 +156,6 @@ describe("Parser", () => {
       expect(program.string()).toEqual(opt.expected);
     });
   });
-
 
   it("should parse if expressions", () => {
     const input = "if (x < y) { x }";
