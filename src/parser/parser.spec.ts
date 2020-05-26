@@ -18,6 +18,9 @@ import {
   testInfixExpression
 } from "./test-helper/infix-expression-parser-test";
 import { OperatorPrecedenceParserTest } from "./test-helper/operator-precedence-parsing-test";
+import ExpressionStatement from "../ast/expression-statement";
+import { testIfExpression, testIfElseExpression } from "./test-helper/if-expression-parser-test";
+
 
 describe("Parser", () => {
   it("should parse let statements", () => {
@@ -108,7 +111,10 @@ describe("Parser", () => {
     ];
     infixTests.forEach((it: InfixExpressionParserTest) => {
       const program: Program = parserProgramForTest(it.input, 1);
-      testInfixExpression(program.statementAt(0), it);
+      const stmt: Statement = program.statementAt(0);
+      expect(stmt).toBeInstanceOf(ExpressionStatement);
+      const expressionStmt: ExpressionStatement = stmt as ExpressionStatement;
+      testInfixExpression(expressionStmt.expression(), it);
     });
   });
 
@@ -147,6 +153,19 @@ describe("Parser", () => {
       const program: Program = parserProgramForTest(opt.input, -1);
       expect(program.string()).toEqual(opt.expected);
     });
+  });
+
+
+  it("should parse if expressions", () => {
+    const input = "if (x < y) { x }";
+    const program: Program = parserProgramForTest(input, 1);
+    testIfExpression(program.statementAt(0));
+  });
+
+  it("should parse if-else expressions", () => {
+    const input = "if (x < y) { x } else { y }";
+    const program: Program = parserProgramForTest(input, 1);
+    testIfElseExpression(program.statementAt(0));
   });
 });
 

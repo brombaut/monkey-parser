@@ -1,23 +1,20 @@
-import Statement from "../../ast/statement";
-import ExpressionStatement from "../../ast/expression-statement";
 import InfixExpression from "../../ast/infix-expression";
 import { testLiteralExpression } from "./literal-expression-parser-test";
+import Expression from "../../ast/expression";
 
 export type InfixExpressionParserTest = {
   input: string;
-  leftValue: number | boolean;
+  leftValue: number | boolean | string;
   operator: string;
-  rightValue: number | boolean;
+  rightValue: number | boolean | string;
 };
 
 export function testInfixExpression(
-  stmt: Statement,
+  exp: Expression,
   expected: InfixExpressionParserTest
 ): void {
-  expect(stmt).toBeInstanceOf(ExpressionStatement);
-  const expressionStmt: ExpressionStatement = stmt as ExpressionStatement;
-  expect(expressionStmt.expression()).toBeInstanceOf(InfixExpression);
-  const infixExpression: InfixExpression = expressionStmt.expression() as InfixExpression;
+  expect(exp).toBeInstanceOf(InfixExpression);
+  const infixExpression: InfixExpression = exp as InfixExpression;
   testLiteralExpression(infixExpression.left(), expected.leftValue);
   expect(infixExpression.operator()).toEqual(expected.operator);
   testLiteralExpression(infixExpression.right(), expected.rightValue);

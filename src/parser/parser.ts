@@ -15,6 +15,8 @@ import IntegerLiteral from "../ast/integer-literal";
 import PrefixExpression from "../ast/prefix-expression";
 import InfixExpression from "../ast/infix-expression";
 import BooleanLiteral from "../ast/boolean-literal";
+import BlockStatement from "../ast/block-statement";
+import IfExpression from "../ast/if-expression";
 
 class Parser {
   private _lexer: Lexer;
@@ -169,6 +171,46 @@ class Parser {
     return exp;
   }
 
+  private parseIfExpression(): Expression {
+    const localToken: Token = this._curToken;
+    if (!this.expectPeek(TokenType.LPAREN)) {
+      return new NullExpression();
+    }
+    this.nextToken();
+    const condition: Expression = this.parseExpression(Precedence.LOWEST);
+    if (!this.expectPeek(TokenType.RPAREN)) {
+      return new NullExpression();
+    }
+    if (!this.expectPeek(TokenType.LBRACE)) {
+      return new NullExpression();
+    }
+    const consequence: BlockStatement = this.parseBlockStatement();
+
+    if (!this.peekTokenIs(TokenType.ELSE)) {
+      return new IfExpression(localToken, condition, consequence);
+    }
+    this.nextToken();
+    if (!this.expectPeek(TokenType.LBRACE)) {
+      return new NullExpression();
+    }
+    const alternative: BlockStatement = this.parseBlockStatement();
+    return new IfExpression(localToken, condition, consequence, alternative);
+  }
+
+  private parseBlockStatement(): BlockStatement {
+    const localToken: Token = this._curToken;
+    this.nextToken();
+    const bs: Statement[] = [];
+    while (!this.curTokenIs(TokenType.RBRACE) && !this.curTokenIs(TokenType.EOF)) {
+      const stmt: Statement = this.parseStatement();
+      if (!(stmt instanceof NullStatement)) {
+        bs.push(stmt);
+      }
+      this.nextToken();
+    }
+    return new BlockStatement(localToken, bs);
+  }
+
   private prefixParseFn(): Expression {
     const ctt: TokenType = this._curToken.type;
     switch (ctt) {
@@ -184,6 +226,8 @@ class Parser {
         return this.parseBoolean();
       case TokenType.LPAREN:
         return this.parseGroupedExpression();
+      case TokenType.IF:
+        return this.parseIfExpression();
       default:
         return new NullExpression();
     }
