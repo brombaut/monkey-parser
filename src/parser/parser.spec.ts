@@ -23,6 +23,11 @@ import {
   testIfExpression,
   testIfElseExpression
 } from "./test-helper/if-expression-parser-test";
+import {
+  testFunctionLiteralParsing,
+  FunctionParameterParsingTest,
+  testFunctionParameterParsing
+} from "./test-helper/function-literal-parsing-parser-test";
 
 describe("Parser", () => {
   it("should parse let statements", () => {
@@ -167,6 +172,24 @@ describe("Parser", () => {
     const input = "if (x < y) { x } else { y }";
     const program: Program = parserProgramForTest(input, 1);
     testIfElseExpression(program.statementAt(0));
+  });
+
+  it("should parse function literals", () => {
+    const input = "fn(x, y) { x + y; }";
+    const program: Program = parserProgramForTest(input, 1);
+    testFunctionLiteralParsing(program.statementAt(0));
+  });
+
+  it("should parse function parameters", () => {
+    const fpTests: FunctionParameterParsingTest[] = [
+      { input: "fn() {};", expectedParams: [] },
+      { input: "fn(x) {};", expectedParams: ["x"] },
+      { input: "fn(x, y, z) {};", expectedParams: ["x", "y", "z"] }
+    ];
+    fpTests.forEach((fpTest: FunctionParameterParsingTest) => {
+      const program: Program = parserProgramForTest(fpTest.input, 1);
+      testFunctionParameterParsing(program.statementAt(0), fpTest);
+    });
   });
 });
 

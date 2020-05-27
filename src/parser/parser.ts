@@ -17,6 +17,7 @@ import InfixExpression from "../ast/infix-expression";
 import BooleanLiteral from "../ast/boolean-literal";
 import BlockStatement from "../ast/block-statement";
 import IfExpression from "../ast/if-expression";
+import FunctionLiteral from "../ast/function-literal";
 
 class Parser {
   private _lexer: Lexer;
@@ -214,6 +215,46 @@ class Parser {
     return new BlockStatement(localToken, bs);
   }
 
+  private parseFunctionLiteral(): Expression {
+    const localToken: Token = this._curToken;
+
+    if (!this.expectPeek(TokenType.LPAREN)) {
+      return new NullExpression();
+    }
+    const parameters: Identifier[] = this.parseFunctionParameters();
+    if (!this.expectPeek(TokenType.LBRACE)) {
+      return new NullExpression();
+    }
+    const body: BlockStatement = this.parseBlockStatement();
+    return new FunctionLiteral(localToken, parameters, body);
+  }
+
+  private parseFunctionParameters(): Identifier[] {
+    const identifiers: Identifier[] = [];
+    if (this.peekTokenIs(TokenType.RPAREN)) {
+      this.nextToken();
+      return identifiers;
+    }
+
+    this.nextToken();
+    let ident: Identifier = new Identifier(
+      this._curToken,
+      this._curToken.literal
+    );
+    identifiers.push(ident);
+
+    while (this.peekTokenIs(TokenType.COMMA)) {
+      this.nextToken();
+      this.nextToken();
+      ident = new Identifier(this._curToken, this._curToken.literal);
+      identifiers.push(ident);
+    }
+    if (!this.expectPeek(TokenType.RPAREN)) {
+      return [];
+    }
+    return identifiers;
+  }
+
   private prefixParseFn(): Expression {
     const ctt: TokenType = this._curToken.type;
     switch (ctt) {
@@ -231,6 +272,8 @@ class Parser {
         return this.parseGroupedExpression();
       case TokenType.IF:
         return this.parseIfExpression();
+      case TokenType.FUNCTION:
+        return this.parseFunctionLiteral();
       default:
         return new NullExpression();
     }

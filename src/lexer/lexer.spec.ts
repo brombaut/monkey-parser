@@ -8,7 +8,7 @@ describe("Lexer", () => {
       let five = 5;
       let ten = 10;
 
-      let add = function(x, y) {
+      let add = fn(x, y) {
         x + y;
       };
 
@@ -39,7 +39,7 @@ describe("Lexer", () => {
       { type: TokenType.LET, literal: "let" },
       { type: TokenType.IDENT, literal: "add" },
       { type: TokenType.ASSIGN, literal: "=" },
-      { type: TokenType.FUNCTION, literal: "function" },
+      { type: TokenType.FUNCTION, literal: "fn" },
       { type: TokenType.LPAREN, literal: "(" },
       { type: TokenType.IDENT, literal: "x" },
       { type: TokenType.COMMA, literal: "," },
