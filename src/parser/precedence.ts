@@ -25,6 +25,8 @@ export const precedences = function (tokenType: TokenType): Precedence {
     case TokenType.SLASH:
     case TokenType.ASTERISK:
       return Precedence.PRODUCT;
+    case TokenType.LPAREN:
+      return Precedence.CALL;
     default:
       return Precedence.LOWEST;
   }

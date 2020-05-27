@@ -28,6 +28,7 @@ import {
   FunctionParameterParsingTest,
   testFunctionParameterParsing
 } from "./test-helper/function-literal-parsing-parser-test";
+import { testCallExpressionParsing } from "./test-helper/call-expression-parser-test";
 
 describe("Parser", () => {
   it("should parse let statements", () => {
@@ -154,7 +155,16 @@ describe("Parser", () => {
       { input: "2 / (5 + 5)", expected: "(2 / (5 + 5))" },
       { input: "(5 + 5) * 2 * (5 + 5)", expected: "(((5 + 5) * 2) * (5 + 5))" },
       { input: "-(5 + 5)", expected: "(-(5 + 5))" },
-      { input: "!(true == true)", expected: "(!(true == true))" }
+      { input: "!(true == true)", expected: "(!(true == true))" },
+      { input: "a + add(b * c) + d", expected: "((a + add((b * c))) + d)" },
+      {
+        input: "add(a, b, 1, 2 * 3, 4 + 5, add(6, 7 * 8))",
+        expected: "add(a, b, 1, (2 * 3), (4 + 5), add(6, (7 * 8)))"
+      },
+      {
+        input: "add(a + b + c * d / f + g)",
+        expected: "add((((a + b) + ((c * d) / f)) + g))"
+      }
     ];
     opTests.forEach((opt: OperatorPrecedenceParserTest) => {
       const program: Program = parserProgramForTest(opt.input, -1);
@@ -190,6 +200,12 @@ describe("Parser", () => {
       const program: Program = parserProgramForTest(fpTest.input, 1);
       testFunctionParameterParsing(program.statementAt(0), fpTest);
     });
+  });
+
+  it("should parse call expressions", () => {
+    const input = "add(1, 2 * 3, 4 + 5);";
+    const program: Program = parserProgramForTest(input, 1);
+    testCallExpressionParsing(program.statementAt(0));
   });
 });
 

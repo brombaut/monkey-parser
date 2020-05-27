@@ -18,6 +18,7 @@ import BooleanLiteral from "../ast/boolean-literal";
 import BlockStatement from "../ast/block-statement";
 import IfExpression from "../ast/if-expression";
 import FunctionLiteral from "../ast/function-literal";
+import CallExpression from "../ast/call-expression";
 
 class Parser {
   private _lexer: Lexer;
@@ -255,6 +256,35 @@ class Parser {
     return identifiers;
   }
 
+  private parseCallExpression(func: Expression): Expression {
+    const localToken: Token = this._curToken;
+    const args: Expression[] = this.parseCallArguments();
+    return new CallExpression(localToken, func, args);
+  }
+
+  private parseCallArguments(): Expression[] {
+    const args: Expression[] = [];
+    if (this.peekTokenIs(TokenType.RPAREN)) {
+      this.nextToken();
+      return args;
+    }
+
+    this.nextToken();
+    args.push(this.parseExpression(Precedence.LOWEST));
+
+    while (this.peekTokenIs(TokenType.COMMA)) {
+      this.nextToken();
+      this.nextToken();
+      args.push(this.parseExpression(Precedence.LOWEST));
+    }
+
+    if (!this.expectPeek(TokenType.RPAREN)) {
+      return [];
+    }
+
+    return args;
+  }
+
   private prefixParseFn(): Expression {
     const ctt: TokenType = this._curToken.type;
     switch (ctt) {
@@ -291,6 +321,8 @@ class Parser {
       case TokenType.LT:
       case TokenType.GT:
         return this.parseInfixExpression(left);
+      case TokenType.LPAREN:
+        return this.parseCallExpression(left);
       default:
         return new NullExpression();
     }
