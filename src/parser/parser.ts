@@ -76,21 +76,25 @@ class Parser {
       return null;
     }
 
-    // TODO: Skipe expression until semicolon
-    while (!this.curTokenIs(TokenType.SEMICOLON)) {
+    this.nextToken();
+
+    const value: Expression = this.parseExpression(Precedence.LOWEST);
+
+    if (this.peekTokenIs(TokenType.SEMICOLON)) {
       this.nextToken();
     }
-    return new LetStatement(localToken, name, new NullExpression());
+
+    return new LetStatement(localToken, name, value);
   }
 
   private parseReturnStatement(): ReturnStatememt {
     const localToken: Token = this._curToken;
     this.nextToken();
-    // TODO: Skipe expression until semicolon
-    while (!this.curTokenIs(TokenType.SEMICOLON)) {
+    const returnValue: Expression = this.parseExpression(Precedence.LOWEST);
+    if (this.peekTokenIs(TokenType.SEMICOLON)) {
       this.nextToken();
     }
-    return new ReturnStatememt(localToken, null);
+    return new ReturnStatememt(localToken, returnValue);
   }
 
   private parseExpressionStatement(): ExpressionStatement {

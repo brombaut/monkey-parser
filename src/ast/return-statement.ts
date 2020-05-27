@@ -4,9 +4,9 @@ import Statement from "./statement";
 
 class ReturnStatememt implements Statement {
   private _token: Token;
-  private _returnValue: Expression | null;
+  private _returnValue: Expression;
 
-  constructor(token: Token, returnValue: Expression | null) {
+  constructor(token: Token, returnValue: Expression) {
     this._token = token;
     this._returnValue = returnValue;
   }
@@ -17,6 +17,10 @@ class ReturnStatememt implements Statement {
 
   tokenLiteral(): string {
     return this._token.literal;
+  }
+
+  returnValue(): Expression {
+    return this._returnValue;
   }
 }
 

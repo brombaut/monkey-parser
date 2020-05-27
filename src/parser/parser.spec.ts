@@ -6,7 +6,10 @@ import {
   LetStatementParserTest,
   testLetStatement
 } from "./test-helper/let-statement-parser-test";
-import { testReturnStatement } from "./test-helper/return-statement-parser-test";
+import {
+  testReturnStatement,
+  ReturnStatementParserTest
+} from "./test-helper/return-statement-parser-test";
 import { testIdentifierExpression } from "./test-helper/identifier-expression-parser-test";
 import { testIntegerLiteralExpression } from "./test-helper/integer-literal-expression-parser-test";
 import {
@@ -32,31 +35,31 @@ import { testCallExpressionParsing } from "./test-helper/call-expression-parser-
 
 describe("Parser", () => {
   it("should parse let statements", () => {
-    const input = `
-      let x = 5;
-      let y = 10;
-      let foobar = 838383;
-    `;
-    const program: Program = parserProgramForTest(input, 3);
-    const tests: LetStatementParserTest[] = [
-      { expectedIdentifier: "x" },
-      { expectedIdentifier: "y" },
-      { expectedIdentifier: "foobar" }
+    const letTests: LetStatementParserTest[] = [
+      { input: "let x = 5;", expectedIdentifier: "x", expectedValue: 5 },
+      { input: "let y = true;", expectedIdentifier: "y", expectedValue: true },
+      {
+        input: "let foobar = y;",
+        expectedIdentifier: "foobar",
+        expectedValue: "y"
+      }
     ];
-    tests.forEach((pt: LetStatementParserTest, i: number) => {
-      const stmt: Statement = program.statementAt(i);
-      testLetStatement(stmt, pt.expectedIdentifier);
+    letTests.forEach((lt: LetStatementParserTest) => {
+      const program: Program = parserProgramForTest(lt.input, 1);
+      testLetStatement(program.statementAt(0), lt);
     });
   });
 
   it("should parse return statements", () => {
-    const input = `
-      return 5;
-      return 10;
-      return 838383;
-    `;
-    const program: Program = parserProgramForTest(input, 3);
-    program.statements().forEach(testReturnStatement);
+    const returnTests: ReturnStatementParserTest[] = [
+      { input: "return 5;", expectedValue: 5 },
+      { input: "return true;", expectedValue: true },
+      { input: "return foobar;", expectedValue: "foobar" }
+    ];
+    returnTests.forEach((rt: ReturnStatementParserTest) => {
+      const program: Program = parserProgramForTest(rt.input, 1);
+      testReturnStatement(program.statementAt(0), rt);
+    });
   });
 
   it("should parse identifier expressions", () => {
