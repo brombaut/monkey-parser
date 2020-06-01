@@ -14,8 +14,6 @@ class FunctionLiteral implements Expression {
     this._body = body;
   }
 
-  expressionNode(): void {}
-
   tokenLiteral(): string {
     return this._token.literal;
   }

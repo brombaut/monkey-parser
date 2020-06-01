@@ -14,8 +14,6 @@ class Identifier implements Expression {
     return this._value;
   }
 
-  expressionNode(): void {}
-
   tokenLiteral(): string {
     return this._token.literal;
   }

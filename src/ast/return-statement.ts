@@ -13,7 +13,6 @@ class ReturnStatememt implements Statement {
   string(): string {
     return `${this.tokenLiteral()} ${this._returnValue?.string()}'`;
   }
-  statementNode(): void {}
 
   tokenLiteral(): string {
     return this._token.literal;

@@ -9,7 +9,7 @@ class BlockStatement implements Statement {
     this._token = token;
     this._statements = statements;
   }
-  statementNode(): void {}
+
   tokenLiteral(): string {
     return this._token.literal;
   }

@@ -1,7 +1,5 @@
 import Node from "./node";
 
-interface Statement extends Node {
-  statementNode(): void;
-}
+interface Statement extends Node {}
 
 export default Statement;

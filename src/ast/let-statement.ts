@@ -14,8 +14,6 @@ class LetStatement implements Statement {
     this._value = value;
   }
 
-  statementNode(): void {}
-
   tokenLiteral(): string {
     return this._token.literal;
   }

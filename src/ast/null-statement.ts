@@ -1,7 +1,6 @@
 import Statement from "./statement";
 
 class NullStatement implements Statement {
-  statementNode(): void {}
   tokenLiteral(): string {
     return "";
   }

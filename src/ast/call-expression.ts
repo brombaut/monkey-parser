@@ -12,8 +12,6 @@ class CallExpression implements Expression {
     this._arguments = a;
   }
 
-  expressionNode(): void {}
-
   tokenLiteral(): string {
     return this._token.literal;
   }

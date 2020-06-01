@@ -12,8 +12,6 @@ class PrefixExpression implements Expression {
     this._right = right;
   }
 
-  expressionNode(): void {}
-
   tokenLiteral(): string {
     return this._token.literal;
   }

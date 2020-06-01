@@ -8,7 +8,6 @@ class BooleanLiteral implements Expression {
     this._token = token;
     this._value = value;
   }
-  expressionNode(): void {}
 
   tokenLiteral(): string {
     return this._token.literal;

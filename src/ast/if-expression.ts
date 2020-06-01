@@ -20,8 +20,6 @@ class IfExpression implements Expression {
     this._alternative = alternative;
   }
 
-  expressionNode(): void {}
-
   tokenLiteral(): string {
     return this._token.literal;
   }
