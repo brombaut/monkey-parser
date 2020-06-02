@@ -2,6 +2,7 @@ import Token from "../token/token";
 import Lexer from "../lexer/lexer";
 import TokenType from "../token/token-type";
 import ErrorList from "./error-list";
+import { Precedence, precedences } from "./precedence";
 
 class TokenPointer {
   private _lexer: Lexer;
@@ -56,6 +57,23 @@ class TokenPointer {
 
   private peekError(t: TokenType): void {
     const msg = `expected next token to be ${t}, got ${this.peekTokenType()} instead`;
+    this._errors.add(msg);
+  }
+
+  public noPrefixParseFnError(t: TokenType): void {
+    const msg = `no prefix parse function for ${t} found`;
+    this._errors.add(msg);
+  }
+
+  public peekPrecedence(): Precedence {
+    return precedences(this.peekTokenType());
+  }
+
+  public curPrecedence(): Precedence {
+    return precedences(this.curTokenType());
+  }
+
+  public addError(msg: string): void {
     this._errors.add(msg);
   }
 }

@@ -1,9 +1,10 @@
 import Parsable from "./parsable";
 import TokenPointer from "./token-pointer";
-import Identifier from "../ast/identifier";
+import TokenType from "../token/token-type";
 import Expression from "../ast/expression";
+import BooleanLiteral from "../ast/boolean-literal";
 
-class IdentifierParser implements Parsable {
+class BooleanParser implements Parsable {
   private _tokenPointer: TokenPointer;
 
   constructor(tp: TokenPointer) {
@@ -11,11 +12,11 @@ class IdentifierParser implements Parsable {
   }
 
   public parse(): Expression {
-    return new Identifier(
+    return new BooleanLiteral(
       this._tokenPointer.curToken(),
-      this._tokenPointer.curTokenLiteral()
+      this._tokenPointer.curTokenIs(TokenType.TRUE)
     );
   }
 }
 
-export default IdentifierParser;
+export default BooleanParser;
