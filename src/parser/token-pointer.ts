@@ -16,7 +16,6 @@ class TokenPointer {
     this.advance();
   }
 
-
   public advance(): void {
     this._curToken = this._peekToken;
     this._peekToken = this._lexer.nextToken();

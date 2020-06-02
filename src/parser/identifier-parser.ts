@@ -11,7 +11,10 @@ class IdentifierParser implements Parsable {
   }
 
   parse(): Expression {
-    return new Identifier(this._tokenPointer.curToken(), this._tokenPointer.curTokenLiteral());
+    return new Identifier(
+      this._tokenPointer.curToken(),
+      this._tokenPointer.curTokenLiteral()
+    );
   }
 }
 
