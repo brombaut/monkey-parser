@@ -1,6 +1,6 @@
 {
   "name": "@brombaut/monkey-parser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Parser for the Monkey programming language. Useful for visualizing the generated AST.",
   "main": "main.ts",
   "files": [
