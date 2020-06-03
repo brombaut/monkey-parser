@@ -1,7 +1,7 @@
 {
-  "name": "typescript-uml-generator",
-  "version": "1.0.0",
-  "description": "",
+  "name": "monkey-parser",
+  "version": "0.6.3",
+  "description": "Parser for the Monkey programming language. Useful for visualizing the generated AST.",
   "main": "index.ts",
   "scripts": {
     "start:dev": "nodemon",
@@ -17,15 +17,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brombaut/typescript-uml-generator.git"
+    "url": "git+https://github.com/brombaut/monkey-parser.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/brombaut/typescript-uml-generator/issues"
+    "url": "https://github.com/brombaut/monkey-parser/issues"
   },
-  "homepage": "https://github.com/brombaut/typescript-uml-generator#readme",
+  "homepage": "https://github.com/brombaut/monkey-parser#readme",
   "devDependencies": {
     "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
@@ -35,7 +35,6 @@
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
-    "husky": "^4.2.5",
     "jest": "^25.5.4",
     "nodemon": "^2.0.4",
     "onchange": "^7.0.2",
@@ -46,11 +45,6 @@
     "ts-jest": "^25.5.1-alpha.0",
     "ts-node": "^8.10.1",
     "typescript": "^3.9.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettier-format && npm run lint"
-    }
   },
   "dependencies": {
     "readline": "^1.3.0"
