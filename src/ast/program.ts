@@ -39,7 +39,8 @@ class Program implements Node {
   }
 
   astString(): string {
-    return JSON.stringify(this, null, 4);
+    return JSON.stringify(this);
+    // return JSON.stringify(this, null, 4);
   }
 }
 

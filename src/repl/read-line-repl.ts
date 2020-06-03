@@ -18,14 +18,20 @@ class ReadLineREPL extends REPL {
     this._rl.prompt();
     this._rl.on("line", (input: string) => {
       this.handleInputLine(input);
+      if (this.errors().length > 0) {
+        this.printParseErrors(this.errors());
+      } else {
+        this.writeLine(JSON.stringify(JSON.parse(this.ast()), null, 4));
+      }
       this._rl.prompt();
     });
   }
 
-  public getLine(): void {}
+  private printParseErrors(errors: string[]): void {
+    errors.forEach((e: string) => this.writeLine(`\t${e}`));
+  }
 
   public writeLine(out: string): void {
-    // this._rl.write(out);
     console.log(out);
   }
 }
