@@ -2,6 +2,7 @@ import Expression from "./expression";
 import Token from "../token/token";
 
 class CallExpression implements Expression {
+  private _node: string = CallExpression.name;
   private _token: Token;
   private _function: Expression;
   private _arguments: Expression[];

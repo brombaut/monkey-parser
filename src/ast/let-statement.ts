@@ -4,6 +4,7 @@ import Identifier from "./identifier";
 import Expression from "./expression";
 
 class LetStatement implements Statement {
+  private _node: string = LetStatement.name;
   private _token: Token;
   private _name: Identifier;
   private _value: Expression;
@@ -19,9 +20,7 @@ class LetStatement implements Statement {
   }
 
   string(): string {
-    return `${
-      this._token.literal()
-      } ${this._name.string()} = ${this._value.string()};`;
+    return `${this._token.literal()} ${this._name.string()} = ${this._value.string()};`;
   }
 
   name(): Identifier {

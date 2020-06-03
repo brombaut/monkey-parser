@@ -2,6 +2,7 @@ import Statement from "./statement";
 import Token from "../token/token";
 
 class BlockStatement implements Statement {
+  private _node: string = BlockStatement.name;
   private _token: Token;
   private _statements: Statement[];
 
