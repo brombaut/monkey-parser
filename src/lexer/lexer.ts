@@ -124,10 +124,7 @@ class Lexer {
   }
 
   private newToken(tokenType: TokenType, ch: string): Token {
-    return {
-      type: tokenType,
-      literal: ch
-    };
+    return new Token(tokenType, ch);
   }
 
   private readIdentifier(): string {

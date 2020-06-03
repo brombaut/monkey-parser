@@ -36,6 +36,10 @@ class Program implements Node {
     });
     return out;
   }
+
+  astString(): string {
+    return JSON.stringify(this, null, 4);
+  }
 }
 
 export default Program;

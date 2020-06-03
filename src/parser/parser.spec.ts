@@ -224,7 +224,7 @@ function parserProgramForTest(input: string, numOfStatement: number): Program {
 }
 
 function checkParserErrors(p: Parser): void {
-  const errors: string[] = p.errors;
+  const errors: string[] = p.errors();
   errors.forEach((e: string) => {
     console.error(`parser error: ${e}`);
   });

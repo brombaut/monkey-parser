@@ -15,7 +15,7 @@ class Identifier implements Expression {
   }
 
   tokenLiteral(): string {
-    return this._token.literal;
+    return this._token.literal();
   }
 
   value(): string {

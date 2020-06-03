@@ -12,6 +12,10 @@ class ErrorList {
   public add(e: string): void {
     this._errors.push(e);
   }
+
+  public isEmpty(): boolean {
+    return this._errors.length === 0;
+  }
 }
 
 export default ErrorList;

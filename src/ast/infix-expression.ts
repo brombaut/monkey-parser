@@ -20,7 +20,7 @@ class InfixExpression implements Expression {
   }
 
   tokenLiteral(): string {
-    return this._token.literal;
+    return this._token.literal();
   }
 
   string(): string {

@@ -16,7 +16,11 @@ class Parser {
     this._tokenPointer = new TokenPointer(lexer, this._errors);
   }
 
-  public get errors(): string[] {
+  public errorsExist(): boolean {
+    return !this._errors.isEmpty();
+  }
+
+  public errors(): string[] {
     return this._errors.list();
   }
 

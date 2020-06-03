@@ -23,11 +23,11 @@ class TokenPointer {
   }
 
   public curTokenIs(t: TokenType): boolean {
-    return this._curToken.type === t;
+    return this._curToken.type() === t;
   }
 
   public peekTokenIs(t: TokenType): boolean {
-    return this._peekToken.type === t;
+    return this._peekToken.type() === t;
   }
 
   public curToken(): Token {
@@ -35,15 +35,15 @@ class TokenPointer {
   }
 
   public curTokenLiteral(): string {
-    return this._curToken.literal;
+    return this._curToken.literal();
   }
 
   public curTokenType(): TokenType {
-    return this._curToken.type;
+    return this._curToken.type();
   }
 
   public peekTokenType(): TokenType {
-    return this._peekToken.type;
+    return this._peekToken.type();
   }
 
   public expectPeek(t: TokenType): boolean {

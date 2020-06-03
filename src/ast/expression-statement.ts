@@ -12,7 +12,7 @@ class ExpressionStatement implements Statement {
   }
 
   tokenLiteral(): string {
-    return this._token.literal;
+    return this._token.literal();
   }
 
   string(): string {

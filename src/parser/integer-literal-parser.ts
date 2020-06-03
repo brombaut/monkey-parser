@@ -14,12 +14,12 @@ class IntegerLiteralParser implements Parsable {
 
   public parse(): Expression {
     const localToken: Token = this._tokenPointer.curToken();
-    if (!Number.isInteger(Number(localToken.literal))) {
-      const msg = `could not parse ${localToken.literal} as integer`;
+    if (!Number.isInteger(Number(localToken.literal()))) {
+      const msg = `could not parse ${localToken.literal()} as integer`;
       this._tokenPointer.addError(msg);
       return new NullExpression();
     }
-    return new IntegerLiteral(localToken, Number(localToken.literal));
+    return new IntegerLiteral(localToken, Number(localToken.literal()));
   }
 }
 

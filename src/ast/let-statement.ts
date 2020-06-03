@@ -15,13 +15,13 @@ class LetStatement implements Statement {
   }
 
   tokenLiteral(): string {
-    return this._token.literal;
+    return this._token.literal();
   }
 
   string(): string {
     return `${
-      this._token.literal
-    } ${this._name.string()} = ${this._value?.string()};`;
+      this._token.literal()
+      } ${this._name.string()} = ${this._value.string()};`;
   }
 
   name(): Identifier {

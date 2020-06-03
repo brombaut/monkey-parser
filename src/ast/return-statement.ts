@@ -15,7 +15,7 @@ class ReturnStatememt implements Statement {
   }
 
   tokenLiteral(): string {
-    return this._token.literal;
+    return this._token.literal();
   }
 
   returnValue(): Expression {

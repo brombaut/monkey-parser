@@ -1,12 +1,20 @@
 import TokenType from "./token-type";
 
 class Token {
-  type: TokenType;
-  literal: string;
+  private _type: TokenType;
+  private _literal: string;
 
   constructor(type: TokenType, literal: string) {
-    this.type = type;
-    this.literal = literal;
+    this._type = type;
+    this._literal = literal;
+  }
+
+  type(): TokenType {
+    return this._type;
+  }
+
+  literal(): string {
+    return this._literal;
   }
 }
 

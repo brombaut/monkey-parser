@@ -20,7 +20,7 @@ class PrefixExpressionParser implements Parsable {
       this._tokenPointer,
       Precedence.PREFIX
     );
-    return new PrefixExpression(localToken, localToken.literal, ep.parse());
+    return new PrefixExpression(localToken, localToken.literal(), ep.parse());
   }
 }
 

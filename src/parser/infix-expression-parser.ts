@@ -23,7 +23,7 @@ class InfixExpressionParser implements Parsable {
     return new InfixExpression(
       localToken,
       this._left,
-      localToken.literal,
+      localToken.literal(),
       ep.parse()
     );
   }
