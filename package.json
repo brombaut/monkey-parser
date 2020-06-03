@@ -1,6 +1,6 @@
 {
   "name": "monkey-parser",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Parser for the Monkey programming language. Useful for visualizing the generated AST.",
   "main": "build/index.ts",
   "files": [
