@@ -1,26 +1,37 @@
 {
   "name": "monkey-parser",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Parser for the Monkey programming language. Useful for visualizing the generated AST.",
-  "main": "index.ts",
+  "main": "build/index.ts",
+  "files": [
+    "build/**/*"
+  ],
   "scripts": {
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "dev": "nodemon --exec ts-node src/index.ts --watch src",
     "test": "jest --watch",
     "jest": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run jest && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brombaut/monkey-parser.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "monkey",
+    "parser"
+  ],
+  "author": "brombaut",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/brombaut/monkey-parser/issues"
@@ -47,6 +58,7 @@
     "typescript": "^3.9.2"
   },
   "dependencies": {
+    "np": "^6.2.3",
     "readline": "^1.3.0"
   }
 }
