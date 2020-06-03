@@ -2,18 +2,18 @@
   "name": "@brombaut/monkey-parser",
   "version": "0.0.2",
   "description": "Parser for the Monkey programming language. Useful for visualizing the generated AST.",
-  "main": "main.ts",
+  "main": "build",
   "files": [
     "build/**/*"
   ],
   "scripts": {
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/main.js",
+    "start": "npm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "dev": "nodemon --exec ts-node src/mainDev.ts --watch src",
+    "dev": "nodemon --exec ts-node src/dev.index.ts --watch src",
     "test": "jest --watch",
     "jest": "jest",
     "coverage": "jest --coverage",
