@@ -1,4 +1,5 @@
 # Monkey Parser
+![npm (scoped)](https://img.shields.io/badge/dynamic/json?color=informational&label=npm&prefix=v&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fbrombaut%2Fmonkey-parser%2Fmaster%2Fpackage.json)
 
 Port to TypeScript of the components from "Writing An Interpreter In Go" by Thorsten Bell for generating an AST.
 
