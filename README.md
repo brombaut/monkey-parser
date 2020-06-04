@@ -3,6 +3,12 @@
 
 Port to TypeScript of the components from "Writing An Interpreter In Go" by Thorsten Bell for generating an AST.
 
+## Install
+
+```bash
+$ npm install @brombaut/monkey-parser
+```
+
 ## Usage
 
 ```JavaScript

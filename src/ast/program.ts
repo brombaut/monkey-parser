@@ -40,7 +40,10 @@ class Program implements Node {
 
   astString(): string {
     return JSON.stringify(this);
-    // return JSON.stringify(this, null, 4);
+  }
+
+  ast(): JSON {
+    return JSON.parse(this.astString());
   }
 }
 
