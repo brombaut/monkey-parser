@@ -213,7 +213,7 @@ describe("Parser", () => {
   });
 
   it("should parse string literals", () => {
-    const input = "\"hello world\"";
+    const input = '"hello world"';
     const program: Program = parserProgramForTest(input, 1);
     testStringLiteralExpression(program.statementAt(0), "hello world");
   });

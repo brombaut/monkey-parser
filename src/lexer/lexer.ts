@@ -78,7 +78,7 @@ class Lexer {
       case "}":
         tok = this.newToken(TokenType.RBRACE, this._ch);
         break;
-      case "\"":
+      case '"':
         tok = this.newToken(TokenType.STRING, this.readString());
         break;
       case "":
@@ -104,11 +104,9 @@ class Lexer {
 
   private readString(): string {
     const startPosition = this._position + 1;
-    while (true) {
+    this.readChar();
+    while (this._ch !== '"' && this._ch) {
       this.readChar();
-      if (this._ch === "\"" || !this._ch) {
-        break;
-      }
     }
     return this._input.slice(startPosition, this._position);
   }

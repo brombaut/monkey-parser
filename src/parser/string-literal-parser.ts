@@ -1,8 +1,6 @@
 import Parsable from "./parsable";
 import TokenPointer from "./token-pointer";
-import TokenType from "../token/token-type";
 import Expression from "../ast/expression";
-import BooleanLiteral from "../ast/boolean-literal";
 import StringLiteral from "../ast/string-literal";
 
 class StringLiteralParser implements Parsable {
