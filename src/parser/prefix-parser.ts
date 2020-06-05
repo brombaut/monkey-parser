@@ -11,6 +11,7 @@ import GroupedExpressionParser from "./grouped-expression-parser";
 import IfExpressionParser from "./if-expression-parser";
 import FunctionLiteralParser from "./function-literal-parser";
 import StringLiteralParser from "./string-literal-parser";
+import ArrayLiteralParser from "./array-literal-parser";
 
 class PrefixParser implements Parsable {
   private _tokenPointer: TokenPointer;
@@ -39,6 +40,9 @@ class PrefixParser implements Parsable {
         break;
       case TokenType.LPAREN:
         p = new GroupedExpressionParser(this._tokenPointer);
+        break;
+      case TokenType.LBRACKET:
+        p = new ArrayLiteralParser(this._tokenPointer);
         break;
       case TokenType.IF:
         p = new IfExpressionParser(this._tokenPointer);

@@ -26,6 +26,8 @@ enum TokenType {
   RPAREN = ")",
   LBRACE = "{",
   RBRACE = "}",
+  LBRACKET = "[",
+  RBRACKET = "]",
 
   EQ = "==",
   NOT_EQ = "!=",

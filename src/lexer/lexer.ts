@@ -78,6 +78,12 @@ class Lexer {
       case "}":
         tok = this.newToken(TokenType.RBRACE, this._ch);
         break;
+      case "[":
+        tok = this.newToken(TokenType.LBRACKET, this._ch);
+        break;
+      case "]":
+        tok = this.newToken(TokenType.RBRACKET, this._ch);
+        break;
       case '"':
         tok = this.newToken(TokenType.STRING, this.readString());
         break;

@@ -24,8 +24,9 @@ describe("Lexer", () => {
 
       10 == 10;
       10 != 9;
-      "foobar;"
-	    "foo bar;"
+      "foobar"
+      "foo bar"
+      [1, 2];
     `;
     const expectedTokens: Token[] = [
       new Token(TokenType.LET, "let"),
@@ -103,6 +104,12 @@ describe("Lexer", () => {
       new Token(TokenType.SEMICOLON, ";"),
       new Token(TokenType.STRING, "foobar"),
       new Token(TokenType.STRING, "foo bar"),
+      new Token(TokenType.LBRACKET, "["),
+      new Token(TokenType.INT, "1"),
+      new Token(TokenType.COMMA, ","),
+      new Token(TokenType.INT, "2"),
+      new Token(TokenType.RBRACKET, "]"),
+      new Token(TokenType.SEMICOLON, ";"),
       new Token(TokenType.EOF, "")
     ];
     runLexerTests(input, expectedTokens);
@@ -125,7 +132,7 @@ function runLexerTests(input: string, expectedTokens: Token[]): void {
   const l: Lexer = new Lexer(input);
   expectedTokens.forEach((expectedToken: Token) => {
     const tok: Token = l.nextToken();
-    expect(tok.type).toEqual(expectedToken.type);
-    expect(tok.literal).toEqual(expectedToken.literal);
+    expect(tok.type()).toEqual(expectedToken.type());
+    expect(tok.literal()).toEqual(expectedToken.literal());
   });
 }
