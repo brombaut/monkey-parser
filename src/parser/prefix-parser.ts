@@ -10,6 +10,7 @@ import BooleanParser from "./boolean-parser";
 import GroupedExpressionParser from "./grouped-expression-parser";
 import IfExpressionParser from "./if-expression-parser";
 import FunctionLiteralParser from "./function-literal-parser";
+import StringLiteralParser from "./string-literal-parser";
 
 class PrefixParser implements Parsable {
   private _tokenPointer: TokenPointer;
@@ -44,6 +45,9 @@ class PrefixParser implements Parsable {
         break;
       case TokenType.FUNCTION:
         p = new FunctionLiteralParser(this._tokenPointer);
+        break;
+      case TokenType.STRING:
+        p = new StringLiteralParser(this._tokenPointer);
         break;
       default:
         return new NullExpression();

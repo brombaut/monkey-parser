@@ -32,6 +32,7 @@ import {
   testFunctionParameterParsing
 } from "./test-helper/function-literal-parsing-parser-test";
 import { testCallExpressionParsing } from "./test-helper/call-expression-parser-test";
+import { testStringLiteralExpression } from "./test-helper/string-literal-expression-parser-test";
 
 describe("Parser", () => {
   it("should parse let statements", () => {
@@ -209,6 +210,12 @@ describe("Parser", () => {
     const input = "add(1, 2 * 3, 4 + 5);";
     const program: Program = parserProgramForTest(input, 1);
     testCallExpressionParsing(program.statementAt(0));
+  });
+
+  it("should parse string literals", () => {
+    const input = "\"hello world\"";
+    const program: Program = parserProgramForTest(input, 1);
+    testStringLiteralExpression(program.statementAt(0), "hello world");
   });
 });
 
