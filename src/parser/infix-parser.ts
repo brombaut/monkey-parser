@@ -5,6 +5,7 @@ import Expression from "../ast/expression";
 import NullExpression from "../ast/null-expression";
 import InfixExpressionParser from "./infix-expression-parser";
 import CallExpressionParser from "./call-expression-parser";
+import IndexExpressionParser from "./index-expression-parser";
 
 class InfixParser implements Parsable {
   private _tokenPointer: TokenPointer;
@@ -31,6 +32,9 @@ class InfixParser implements Parsable {
         break;
       case TokenType.LPAREN:
         p = new CallExpressionParser(this._tokenPointer, this._left);
+        break;
+      case TokenType.LBRACKET:
+        p = new IndexExpressionParser(this._tokenPointer, this._left);
         break;
       default:
         return new NullExpression();

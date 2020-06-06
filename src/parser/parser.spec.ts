@@ -34,6 +34,7 @@ import {
 import { testCallExpressionParsing } from "./test-helper/call-expression-parser-test";
 import { testStringLiteralExpression } from "./test-helper/string-literal-expression-parser-test";
 import { testArrayLiteral } from "./test-helper/array-literal-parser-test";
+import { testIndexExpression } from "./test-helper/index-expression-parser-test";
 
 describe("Parser", () => {
   it("should parse let statements", () => {
@@ -169,6 +170,14 @@ describe("Parser", () => {
       {
         input: "add(a + b + c * d / f + g)",
         expected: "add((((a + b) + ((c * d) / f)) + g))"
+      },
+      {
+        input: "a * [1, 2, 3, 4][b * c] * d",
+        expected: "((a * ([1, 2, 3, 4][(b * c)])) * d)"
+      },
+      {
+        input: "add(a * b[2], b[1], 2 * [1, 2][1])",
+        expected: "add((a * (b[2])), (b[1]), (2 * ([1, 2][1])))"
       }
     ];
     opTests.forEach((opt: OperatorPrecedenceParserTest) => {
@@ -223,6 +232,12 @@ describe("Parser", () => {
     const input = "[1, 2 * 3, 3 + 3]";
     const program: Program = parserProgramForTest(input, 1);
     testArrayLiteral(program.statementAt(0));
+  });
+
+  it("should parse index expressions", () => {
+    const input = "myArray[1 + 1]";
+    const program: Program = parserProgramForTest(input, 1);
+    testIndexExpression(program.statementAt(0));
   });
 });
 
