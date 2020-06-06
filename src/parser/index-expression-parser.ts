@@ -20,7 +20,10 @@ class IndexExpressionParser implements Parsable {
   public parse(): Expression {
     const localToken: Token = this._tokenPointer.curToken();
     this._tokenPointer.advance();
-    const ep: Parsable = new ExpressionParser(this._tokenPointer, Precedence.LOWEST);
+    const ep: Parsable = new ExpressionParser(
+      this._tokenPointer,
+      Precedence.LOWEST
+    );
     const index: Expression = ep.parse();
     if (!this._tokenPointer.expectPeek(TokenType.RBRACKET)) {
       return new NullExpression();

@@ -7,7 +7,6 @@ import {
 import IndexExpression from "../../ast/index-expression";
 import { testIdentifier } from "./identifier-parser-test";
 
-
 export function testIndexExpression(stmt: Statement): void {
   expect(stmt).toBeInstanceOf(ExpressionStatement);
   const es: ExpressionStatement = stmt as ExpressionStatement;
