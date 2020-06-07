@@ -4,7 +4,7 @@ class Token {
   private _type: TokenType;
   private _literal: string;
   private _line: number;
-  private _column: number
+  private _column: number;
 
   constructor(type: TokenType, literal: string, line: number, column: number) {
     this._type = type;

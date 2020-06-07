@@ -34,14 +34,24 @@ class Lexer {
           const literal: string = currCh + this._ch;
           tok = this.newToken(TokenType.EQ, literal, this._line, startColumn);
         } else {
-          tok = this.newToken(TokenType.ASSIGN, this._ch, this._line, this._column);
+          tok = this.newToken(
+            TokenType.ASSIGN,
+            this._ch,
+            this._line,
+            this._column
+          );
         }
         break;
       case "+":
         tok = this.newToken(TokenType.PLUS, this._ch, this._line, this._column);
         break;
       case "-":
-        tok = this.newToken(TokenType.MINUS, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.MINUS,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case "!":
         if (this.peekChar() === "=") {
@@ -49,16 +59,36 @@ class Lexer {
           const currCh: string = this._ch;
           this.readChar();
           const literal: string = currCh + this._ch;
-          tok = this.newToken(TokenType.NOT_EQ, literal, this._line, startColumn);
+          tok = this.newToken(
+            TokenType.NOT_EQ,
+            literal,
+            this._line,
+            startColumn
+          );
         } else {
-          tok = this.newToken(TokenType.BANG, this._ch, this._line, this._column);
+          tok = this.newToken(
+            TokenType.BANG,
+            this._ch,
+            this._line,
+            this._column
+          );
         }
         break;
       case "/":
-        tok = this.newToken(TokenType.SLASH, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.SLASH,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case "*":
-        tok = this.newToken(TokenType.ASTERISK, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.ASTERISK,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case "<":
         tok = this.newToken(TokenType.LT, this._ch, this._line, this._column);
@@ -67,28 +97,68 @@ class Lexer {
         tok = this.newToken(TokenType.GT, this._ch, this._line, this._column);
         break;
       case ";":
-        tok = this.newToken(TokenType.SEMICOLON, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.SEMICOLON,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case ",":
-        tok = this.newToken(TokenType.COMMA, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.COMMA,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case "(":
-        tok = this.newToken(TokenType.LPAREN, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.LPAREN,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case ")":
-        tok = this.newToken(TokenType.RPAREN, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.RPAREN,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case "{":
-        tok = this.newToken(TokenType.LBRACE, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.LBRACE,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case "}":
-        tok = this.newToken(TokenType.RBRACE, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.RBRACE,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case "[":
-        tok = this.newToken(TokenType.LBRACKET, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.LBRACKET,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case "]":
-        tok = this.newToken(TokenType.RBRACKET, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.RBRACKET,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case '"':
         const startColumn = this._column;
@@ -96,7 +166,12 @@ class Lexer {
         tok = this.newToken(TokenType.STRING, str, this._line, startColumn);
         break;
       case ":":
-        tok = this.newToken(TokenType.COLON, this._ch, this._line, this._column);
+        tok = this.newToken(
+          TokenType.COLON,
+          this._ch,
+          this._line,
+          this._column
+        );
         break;
       case "":
         tok = this.newToken(TokenType.EOF, "", this._line, this._column);
@@ -105,7 +180,12 @@ class Lexer {
         if (this.chIsLetter()) {
           const startColumn = this._column;
           const identifier = this.readIdentifier();
-          tok = this.newToken(lookupIdent(identifier), identifier, this._line, startColumn);
+          tok = this.newToken(
+            lookupIdent(identifier),
+            identifier,
+            this._line,
+            startColumn
+          );
           return tok;
         } else if (this.chIsDigit()) {
           const startColumn = this._column;
@@ -113,7 +193,12 @@ class Lexer {
           tok = this.newToken(TokenType.INT, num, this._line, startColumn);
           return tok;
         } else {
-          tok = this.newToken(TokenType.ILLEGAL, this._ch, this._line, this._column);
+          tok = this.newToken(
+            TokenType.ILLEGAL,
+            this._ch,
+            this._line,
+            this._column
+          );
         }
         break;
     }
@@ -159,7 +244,12 @@ class Lexer {
     }
   }
 
-  private newToken(tokenType: TokenType, ch: string, line: number, column: number): Token {
+  private newToken(
+    tokenType: TokenType,
+    ch: string,
+    line: number,
+    column: number
+  ): Token {
     return new Token(tokenType, ch, line, column);
   }
 
