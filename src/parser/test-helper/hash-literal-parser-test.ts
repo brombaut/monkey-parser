@@ -2,8 +2,6 @@ import Statement from "../../ast/statement";
 import ExpressionStatement from "../../ast/expression-statement";
 import { testIntegerLiteral } from "./integer-literal-parser-test";
 import HashLiteral from "../../ast/hash-literal";
-import Expression from "../../ast/expression";
-import StringLiteral from "../../ast/string-literal";
 
 export function testHashLiteralsStringKeys(
   stmt: Statement,
@@ -14,7 +12,7 @@ export function testHashLiteralsStringKeys(
   expect(es.expression()).toBeInstanceOf(HashLiteral);
   const hash: HashLiteral = es.expression() as HashLiteral;
   expect(hash.length()).toEqual(3);
-  for (let [key, value] of Object.entries(hash.pairs())) {
+  for (const [key, value] of Object.entries(hash.pairs())) {
     expect(expected[key]).not.toBeUndefined();
     const expectedValue: number = expected[key];
     testIntegerLiteral(value, expectedValue);
@@ -45,7 +43,7 @@ export function testHashLiteralWithExpressions(
   expect(es.expression()).toBeInstanceOf(HashLiteral);
   const hash: HashLiteral = es.expression() as HashLiteral;
   expect(hash.length()).toEqual(3);
-  for (let [key, value] of Object.entries(hash.pairs())) {
+  for (const [key, value] of Object.entries(hash.pairs())) {
     expect(expected[key]).not.toBeUndefined();
     const testFunc: Function = expected[key];
     testFunc(value);
