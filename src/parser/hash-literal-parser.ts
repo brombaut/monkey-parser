@@ -17,10 +17,11 @@ class HashLiteralParser implements Parsable {
 
   public parse(): Expression {
     const localToken: Token = this._tokenPointer.curToken();
-    const pairs: Map<Expression, Expression> = new Map<
-      Expression,
-      Expression
-    >();
+    // const pairs: Map<Expression, Expression> = new Map<
+    //   Expression,
+    //   Expression
+    // >();
+    const pairs: { [key: string]: Expression } = {};
     while (!this._tokenPointer.peekTokenIs(TokenType.RBRACE)) {
       this._tokenPointer.advance();
       const epKey: Parsable = new ExpressionParser(
@@ -39,7 +40,8 @@ class HashLiteralParser implements Parsable {
         Precedence.LOWEST
       );
       const value: Expression = epValue.parse();
-      pairs.set(key, value);
+      // pairs.set(key, value);
+      pairs[key.string()] = value;
 
       if (
         !this._tokenPointer.peekTokenIs(TokenType.RBRACE) &&
@@ -52,8 +54,8 @@ class HashLiteralParser implements Parsable {
     if (!this._tokenPointer.expectPeek(TokenType.RBRACE)) {
       return new NullExpression();
     }
-
-    return new HashLiteral(localToken, pairs);
+    const temp: HashLiteral = new HashLiteral(localToken, pairs);
+    return temp;
   }
 }
 
