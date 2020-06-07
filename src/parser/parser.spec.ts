@@ -35,6 +35,12 @@ import { testCallExpressionParsing } from "./test-helper/call-expression-parser-
 import { testStringLiteralExpression } from "./test-helper/string-literal-expression-parser-test";
 import { testArrayLiteral } from "./test-helper/array-literal-parser-test";
 import { testIndexExpression } from "./test-helper/index-expression-parser-test";
+import {
+  testEmptyHashLiteral,
+  testHashLiteralWithExpressions,
+  testHashLiteralsStringKeys
+} from "./test-helper/hash-literal-parser-test";
+import Expression from "../ast/expression";
 
 describe("Parser", () => {
   it("should parse let statements", () => {
@@ -238,6 +244,64 @@ describe("Parser", () => {
     const input = "myArray[1 + 1]";
     const program: Program = parserProgramForTest(input, 1);
     testIndexExpression(program.statementAt(0));
+  });
+
+  it("should parse hash literals", () => {
+    const inputStringKeys = '{"one": 1, "two": 2, "three": 3}';
+    const programStringKeys: Program = parserProgramForTest(inputStringKeys, 1);
+    const expectedStringKeys: Map<string, number> = new Map<string, number>();
+    expectedStringKeys.set("one", 1);
+    expectedStringKeys.set("two", 2);
+    expectedStringKeys.set("three", 3);
+    testHashLiteralsStringKeys(
+      programStringKeys.statementAt(0),
+      expectedStringKeys
+    );
+
+    const inputEmpty = "{}";
+    const programEmpty: Program = parserProgramForTest(inputEmpty, 1);
+    testEmptyHashLiteral(programEmpty.statementAt(0));
+
+    const inputExpressions = '{"one": 0 + 1, "two": 10 - 8, "three": 15 / 5}';
+    const programExpressions: Program = parserProgramForTest(
+      inputExpressions,
+      1
+    );
+    const expectedExpressions: Map<string, Function> = new Map<
+      string,
+      Function
+    >();
+    expectedExpressions.set("one", function (e: Expression) {
+      const iept: InfixExpressionParserTest = {
+        input: "0 + 1",
+        leftValue: 0,
+        operator: "+",
+        rightValue: 1
+      };
+      testInfixExpression(e, iept);
+    });
+    expectedExpressions.set("two", function (e: Expression) {
+      const iept: InfixExpressionParserTest = {
+        input: "10 - 8",
+        leftValue: 10,
+        operator: "-",
+        rightValue: 8
+      };
+      testInfixExpression(e, iept);
+    });
+    expectedExpressions.set("three", function (e: Expression) {
+      const iept: InfixExpressionParserTest = {
+        input: "15 / 5",
+        leftValue: 15,
+        operator: "/",
+        rightValue: 5
+      };
+      testInfixExpression(e, iept);
+    });
+    testHashLiteralWithExpressions(
+      programExpressions.statementAt(0),
+      expectedExpressions
+    );
   });
 });
 

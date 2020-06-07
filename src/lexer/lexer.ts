@@ -87,6 +87,9 @@ class Lexer {
       case '"':
         tok = this.newToken(TokenType.STRING, this.readString());
         break;
+      case ":":
+        tok = this.newToken(TokenType.COLON, this._ch);
+        break;
       case "":
         tok = this.newToken(TokenType.EOF, "");
         break;

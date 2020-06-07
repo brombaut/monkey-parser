@@ -27,6 +27,7 @@ describe("Lexer", () => {
       "foobar"
       "foo bar"
       [1, 2];
+      {"foo": "bar"}
     `;
     const expectedTokens: Token[] = [
       new Token(TokenType.LET, "let"),
@@ -110,6 +111,11 @@ describe("Lexer", () => {
       new Token(TokenType.INT, "2"),
       new Token(TokenType.RBRACKET, "]"),
       new Token(TokenType.SEMICOLON, ";"),
+      new Token(TokenType.LBRACE, "{"),
+      new Token(TokenType.STRING, "foo"),
+      new Token(TokenType.COLON, ":"),
+      new Token(TokenType.STRING, "bar"),
+      new Token(TokenType.RBRACE, "}"),
       new Token(TokenType.EOF, "")
     ];
     runLexerTests(input, expectedTokens);
