@@ -249,10 +249,10 @@ describe("Parser", () => {
   it("should parse hash literals", () => {
     const inputStringKeys = '{"one": 1, "two": 2, "three": 3}';
     const programStringKeys: Program = parserProgramForTest(inputStringKeys, 1);
-    const expectedStringKeys: Map<string, number> = new Map<string, number>();
-    expectedStringKeys.set("one", 1);
-    expectedStringKeys.set("two", 2);
-    expectedStringKeys.set("three", 3);
+    const expectedStringKeys: { [key: string]: number } = {};
+    expectedStringKeys["one"] = 1;
+    expectedStringKeys["two"] = 2;
+    expectedStringKeys["three"] = 3;
     testHashLiteralsStringKeys(
       programStringKeys.statementAt(0),
       expectedStringKeys
@@ -267,11 +267,8 @@ describe("Parser", () => {
       inputExpressions,
       1
     );
-    const expectedExpressions: Map<string, Function> = new Map<
-      string,
-      Function
-    >();
-    expectedExpressions.set("one", function (e: Expression) {
+    const expectedExpressions: { [key: string]: Function } = {};
+    expectedExpressions["one"] = function (e: Expression) {
       const iept: InfixExpressionParserTest = {
         input: "0 + 1",
         leftValue: 0,
@@ -279,8 +276,8 @@ describe("Parser", () => {
         rightValue: 1
       };
       testInfixExpression(e, iept);
-    });
-    expectedExpressions.set("two", function (e: Expression) {
+    };
+    expectedExpressions["two"] = function (e: Expression) {
       const iept: InfixExpressionParserTest = {
         input: "10 - 8",
         leftValue: 10,
@@ -288,8 +285,8 @@ describe("Parser", () => {
         rightValue: 8
       };
       testInfixExpression(e, iept);
-    });
-    expectedExpressions.set("three", function (e: Expression) {
+    };
+    expectedExpressions["three"] = function (e: Expression) {
       const iept: InfixExpressionParserTest = {
         input: "15 / 5",
         leftValue: 15,
@@ -297,7 +294,7 @@ describe("Parser", () => {
         rightValue: 5
       };
       testInfixExpression(e, iept);
-    });
+    };
     testHashLiteralWithExpressions(
       programExpressions.statementAt(0),
       expectedExpressions
