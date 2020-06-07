@@ -17,7 +17,7 @@ class HashLiteral implements Expression {
 
   string(): string {
     const pairs: string[] = [];
-    for (let [key, value] of Object.entries(this._pairs)) {
+    for (const [key, value] of Object.entries(this._pairs)) {
       // this._pairs.forEach((value: Expression, key: Expression) => {
       pairs.push(`${key}:${value.string()}`);
     }

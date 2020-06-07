@@ -268,7 +268,7 @@ describe("Parser", () => {
       1
     );
     const expectedExpressions: { [key: string]: Function } = {};
-    expectedExpressions["one"] = function (e: Expression) {
+    expectedExpressions["one"] = function (e: Expression): void {
       const iept: InfixExpressionParserTest = {
         input: "0 + 1",
         leftValue: 0,
@@ -277,7 +277,7 @@ describe("Parser", () => {
       };
       testInfixExpression(e, iept);
     };
-    expectedExpressions["two"] = function (e: Expression) {
+    expectedExpressions["two"] = function (e: Expression): void {
       const iept: InfixExpressionParserTest = {
         input: "10 - 8",
         leftValue: 10,
@@ -286,7 +286,7 @@ describe("Parser", () => {
       };
       testInfixExpression(e, iept);
     };
-    expectedExpressions["three"] = function (e: Expression) {
+    expectedExpressions["three"] = function (e: Expression): void {
       const iept: InfixExpressionParserTest = {
         input: "15 / 5",
         leftValue: 15,
