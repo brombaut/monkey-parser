@@ -7,12 +7,16 @@ class Lexer {
   private _position: number; // currrent position in input (points to current char)
   private _readPosition: number; // current reading position in input (after current char)
   private _ch: string; // current char under examination
+  private _column: number;
+  private _line: number;
 
   constructor(input: string) {
     this._input = input;
     this._position = -1;
     this._readPosition = 0;
     this._ch = "";
+    this._line = 1;
+    this._column = 0;
     this.readChar();
   }
 
@@ -24,86 +28,92 @@ class Lexer {
     switch (this._ch) {
       case "=":
         if (this.peekChar() === "=") {
+          const startColumn = this._column;
           const currCh: string = this._ch;
           this.readChar();
           const literal: string = currCh + this._ch;
-          tok = this.newToken(TokenType.EQ, literal);
+          tok = this.newToken(TokenType.EQ, literal, this._line, startColumn);
         } else {
-          tok = this.newToken(TokenType.ASSIGN, this._ch);
+          tok = this.newToken(TokenType.ASSIGN, this._ch, this._line, this._column);
         }
         break;
       case "+":
-        tok = this.newToken(TokenType.PLUS, this._ch);
+        tok = this.newToken(TokenType.PLUS, this._ch, this._line, this._column);
         break;
       case "-":
-        tok = this.newToken(TokenType.MINUS, this._ch);
+        tok = this.newToken(TokenType.MINUS, this._ch, this._line, this._column);
         break;
       case "!":
         if (this.peekChar() === "=") {
+          const startColumn = this._column;
           const currCh: string = this._ch;
           this.readChar();
           const literal: string = currCh + this._ch;
-          tok = this.newToken(TokenType.NOT_EQ, literal);
+          tok = this.newToken(TokenType.NOT_EQ, literal, this._line, startColumn);
         } else {
-          tok = this.newToken(TokenType.BANG, this._ch);
+          tok = this.newToken(TokenType.BANG, this._ch, this._line, this._column);
         }
         break;
       case "/":
-        tok = this.newToken(TokenType.SLASH, this._ch);
+        tok = this.newToken(TokenType.SLASH, this._ch, this._line, this._column);
         break;
       case "*":
-        tok = this.newToken(TokenType.ASTERISK, this._ch);
+        tok = this.newToken(TokenType.ASTERISK, this._ch, this._line, this._column);
         break;
       case "<":
-        tok = this.newToken(TokenType.LT, this._ch);
+        tok = this.newToken(TokenType.LT, this._ch, this._line, this._column);
         break;
       case ">":
-        tok = this.newToken(TokenType.GT, this._ch);
+        tok = this.newToken(TokenType.GT, this._ch, this._line, this._column);
         break;
       case ";":
-        tok = this.newToken(TokenType.SEMICOLON, this._ch);
+        tok = this.newToken(TokenType.SEMICOLON, this._ch, this._line, this._column);
         break;
       case ",":
-        tok = this.newToken(TokenType.COMMA, this._ch);
+        tok = this.newToken(TokenType.COMMA, this._ch, this._line, this._column);
         break;
       case "(":
-        tok = this.newToken(TokenType.LPAREN, this._ch);
+        tok = this.newToken(TokenType.LPAREN, this._ch, this._line, this._column);
         break;
       case ")":
-        tok = this.newToken(TokenType.RPAREN, this._ch);
+        tok = this.newToken(TokenType.RPAREN, this._ch, this._line, this._column);
         break;
       case "{":
-        tok = this.newToken(TokenType.LBRACE, this._ch);
+        tok = this.newToken(TokenType.LBRACE, this._ch, this._line, this._column);
         break;
       case "}":
-        tok = this.newToken(TokenType.RBRACE, this._ch);
+        tok = this.newToken(TokenType.RBRACE, this._ch, this._line, this._column);
         break;
       case "[":
-        tok = this.newToken(TokenType.LBRACKET, this._ch);
+        tok = this.newToken(TokenType.LBRACKET, this._ch, this._line, this._column);
         break;
       case "]":
-        tok = this.newToken(TokenType.RBRACKET, this._ch);
+        tok = this.newToken(TokenType.RBRACKET, this._ch, this._line, this._column);
         break;
       case '"':
-        tok = this.newToken(TokenType.STRING, this.readString());
+        const startColumn = this._column;
+        const str = this.readString();
+        tok = this.newToken(TokenType.STRING, str, this._line, startColumn);
         break;
       case ":":
-        tok = this.newToken(TokenType.COLON, this._ch);
+        tok = this.newToken(TokenType.COLON, this._ch, this._line, this._column);
         break;
       case "":
-        tok = this.newToken(TokenType.EOF, "");
+        tok = this.newToken(TokenType.EOF, "", this._line, this._column);
         break;
       default:
         if (this.chIsLetter()) {
+          const startColumn = this._column;
           const identifier = this.readIdentifier();
-          tok = this.newToken(lookupIdent(identifier), identifier);
+          tok = this.newToken(lookupIdent(identifier), identifier, this._line, startColumn);
           return tok;
         } else if (this.chIsDigit()) {
+          const startColumn = this._column;
           const num = this.readNumber();
-          tok = this.newToken(TokenType.INT, num);
+          tok = this.newToken(TokenType.INT, num, this._line, startColumn);
           return tok;
         } else {
-          tok = this.newToken(TokenType.ILLEGAL, this._ch);
+          tok = this.newToken(TokenType.ILLEGAL, this._ch, this._line, this._column);
         }
         break;
     }
@@ -128,6 +138,7 @@ class Lexer {
     }
     this._position = this._readPosition;
     ++this._readPosition;
+    ++this._column;
   }
 
   private peekChar(): string {
@@ -140,12 +151,16 @@ class Lexer {
 
   private skipWhitespace(): void {
     while (/\s/.test(this._ch)) {
+      if (/\r\n|\r|\n/.test(this._ch)) {
+        ++this._line;
+        this._column = 0;
+      }
       this.readChar();
     }
   }
 
-  private newToken(tokenType: TokenType, ch: string): Token {
-    return new Token(tokenType, ch);
+  private newToken(tokenType: TokenType, ch: string, line: number, column: number): Token {
+    return new Token(tokenType, ch, line, column);
   }
 
   private readIdentifier(): string {
