@@ -24,6 +24,7 @@ class Lexer {
     let tok: Token;
 
     this.skipWhitespace();
+    this.skipLineComments();
 
     switch (this._ch) {
       case "=":
@@ -235,13 +236,27 @@ class Lexer {
   }
 
   private skipWhitespace(): void {
-    while (/\s/.test(this._ch)) {
-      if (/\r\n|\r|\n/.test(this._ch)) {
-        ++this._line;
-        this._column = 0;
+    while (this.chIsWhiteSpace()) {
+      if (this.chIsNewLine()) {
+        this.newLine();
       }
       this.readChar();
     }
+  }
+
+  private skipLineComments(): void {
+    if (this._ch === "/" && this.peekChar() === "/") {
+      while (!this.chIsNewLine() && this._ch) {
+        this.readChar();
+      }
+      this.newLine();
+      this.readChar();
+    }
+  }
+
+  private newLine(): void {
+    ++this._line;
+    this._column = 0;
   }
 
   private newToken(
@@ -275,6 +290,14 @@ class Lexer {
 
   private chIsDigit(): boolean {
     return this._ch.match(/[0-9]/i) ? true : false;
+  }
+
+  private chIsWhiteSpace(): boolean {
+    return /\s/.test(this._ch);
+  }
+
+  private chIsNewLine(): boolean {
+    return /\r\n|\r|\n/.test(this._ch);
   }
 }
 

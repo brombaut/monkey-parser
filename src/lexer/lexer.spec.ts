@@ -28,6 +28,9 @@ if (5 < 10) {
 "foo bar"
 [1, 2];
 {"foo": "bar"}
+
+x; // This comment should be ignored
+y; // This comment should also be ignored
 `;
 
     const expectedTokens: Token[] = [
@@ -117,7 +120,11 @@ if (5 < 10) {
       new Token(TokenType.COLON, ":", 24, 7),
       new Token(TokenType.STRING, "bar", 24, 9),
       new Token(TokenType.RBRACE, "}", 24, 14),
-      new Token(TokenType.EOF, "", 25, 1)
+      new Token(TokenType.IDENT, "x", 26, 1),
+      new Token(TokenType.SEMICOLON, ";", 26, 2),
+      new Token(TokenType.IDENT, "y", 27, 1),
+      new Token(TokenType.SEMICOLON, ";", 27, 2),
+      new Token(TokenType.EOF, "", 28, 1)
     ];
     runLexerTests(input, expectedTokens);
   });
