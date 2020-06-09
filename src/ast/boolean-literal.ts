@@ -2,7 +2,7 @@ import Expression from "./expression";
 import Token from "../token/token";
 
 class BooleanLiteral implements Expression {
-  private _node: string = BooleanLiteral.name;
+  private _node: string = "BooleanLiteral";
   private _token: Token;
   private _value: boolean;
   constructor(token: Token, value: boolean) {

@@ -2,7 +2,7 @@ import Expression from "./expression";
 import Token from "../token/token";
 
 class InfixExpression implements Expression {
-  private _node: string = InfixExpression.name;
+  private _node: string = "InfixExpression";
   private _token: Token;
   private _operator: string;
   private _right: Expression;

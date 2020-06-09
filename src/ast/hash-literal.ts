@@ -2,7 +2,7 @@ import Expression from "./expression";
 import Token from "../token/token";
 
 class HashLiteral implements Expression {
-  private _node: string = HashLiteral.name;
+  private _node: string = "HashLiteral";
   private _token: Token;
   // private _pairs: Map<Expression, Expression>;
   private _pairs: { [key: string]: Expression };

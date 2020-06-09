@@ -1,7 +1,7 @@
 import Expression from "./expression";
 
 class NullExpression implements Expression {
-  private _node: string = NullExpression.name;
+  private _node: string = "NullExpression";
 
   tokenLiteral(): string {
     return "";
