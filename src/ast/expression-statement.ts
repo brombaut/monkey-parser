@@ -3,7 +3,7 @@ import Token from "../token/token";
 import Expression from "./expression";
 
 class ExpressionStatement implements Statement {
-  private _node: string = "ExpressionStatement";
+  private _node = "ExpressionStatement";
   private _token: Token;
   private _expression: Expression;
 

@@ -2,7 +2,7 @@ import Expression from "./expression";
 import Token from "../token/token";
 
 class IndexExpression implements Expression {
-  private _node: string = "IndexExpression";
+  private _node = "IndexExpression";
   private _token: Token;
   private _left: Expression;
   private _index: Expression;

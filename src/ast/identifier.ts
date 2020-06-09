@@ -2,7 +2,7 @@ import Expression from "./expression";
 import Token from "../token/token";
 
 class Identifier implements Expression {
-  private _node: string = "Identifier";
+  private _node = "Identifier";
   private _token: Token;
   private _value: string;
 

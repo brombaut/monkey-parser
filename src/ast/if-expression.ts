@@ -3,7 +3,7 @@ import Token from "../token/token";
 import BlockStatement from "./block-statement";
 
 class IfExpression implements Expression {
-  private _node: string = "IfExpression";
+  private _node = "IfExpression";
   private _token: Token; // The 'if' token
   private _condition: Expression;
   private _consequence: BlockStatement;

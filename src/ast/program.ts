@@ -2,7 +2,7 @@ import Node from "./node";
 import Statement from "./statement";
 
 class Program implements Node {
-  private _node: string = "Program";
+  private _node = "Program";
   private _statements: Statement[] = [];
 
   constructor(statements?: Statement[]) {
