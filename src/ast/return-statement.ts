@@ -3,7 +3,7 @@ import Expression from "./expression";
 import Statement from "./statement";
 
 class ReturnStatememt implements Statement {
-  private _node: string = ReturnStatememt.name;
+  private _node: string = "ReturnStatememt";
   private _token: Token;
   private _returnValue: Expression;
 

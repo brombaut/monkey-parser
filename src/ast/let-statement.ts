@@ -4,7 +4,7 @@ import Identifier from "./identifier";
 import Expression from "./expression";
 
 class LetStatement implements Statement {
-  private _node: string = LetStatement.name;
+  private _node: string = "LetStatement";
   private _token: Token;
   private _name: Identifier;
   private _value: Expression;

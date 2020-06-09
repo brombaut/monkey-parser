@@ -4,7 +4,7 @@ import Identifier from "./identifier";
 import BlockStatement from "./block-statement";
 
 class FunctionLiteral implements Expression {
-  private _node: string = FunctionLiteral.name;
+  private _node: string = "FunctionLiteral";
   private _token: Token;
   private _parameters: Identifier[];
   private _body: BlockStatement;

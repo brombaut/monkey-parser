@@ -1,7 +1,7 @@
 import Statement from "./statement";
 
 class NullStatement implements Statement {
-  private _node: string = NullStatement.name;
+  private _node: string = "NullStatement";
 
   tokenLiteral(): string {
     return "";
