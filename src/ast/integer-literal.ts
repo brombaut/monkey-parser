@@ -2,7 +2,7 @@ import Expression from "./expression";
 import Token from "../token/token";
 
 class IntegerLiteral implements Expression {
-  private _node: string = "IntegerLiteral";
+  private _node = "IntegerLiteral";
   private _token: Token;
   private _value: number;
 

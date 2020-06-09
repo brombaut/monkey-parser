@@ -2,7 +2,7 @@ import Expression from "./expression";
 import Token from "../token/token";
 
 class ArrayLiteral implements Expression {
-  private _node: string = "ArrayLiteral";
+  private _node = "ArrayLiteral";
   private _token: Token;
   private _elements: Expression[];
   constructor(token: Token, elements: Expression[]) {

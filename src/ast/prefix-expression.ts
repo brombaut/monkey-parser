@@ -2,7 +2,7 @@ import Expression from "./expression";
 import Token from "../token/token";
 
 class PrefixExpression implements Expression {
-  private _node: string = "PrefixExpression";
+  private _node = "PrefixExpression";
   private _token: Token;
   private _operator: string;
   private _right: Expression;
