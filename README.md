@@ -3,6 +3,9 @@
 
 Port to TypeScript of the components from "Writing An Interpreter In Go" by Thorsten Bell for generating an AST.
 
+## Demo
+https://brombaut.github.io/monkey-ast-visualizer/
+
 ## Install
 
 ```bash
